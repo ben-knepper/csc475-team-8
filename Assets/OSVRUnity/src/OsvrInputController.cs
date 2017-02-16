@@ -54,6 +54,10 @@ namespace OSVR
 
                 // Get the input vector from keyboard or analog stick
                 Vector3 directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+                Vector3 hydraDirectionVector = new Vector3(
+                    SixenseInput.Controllers[0].JoystickX, 0,
+                    SixenseInput.Controllers[0].JoystickY);
+                directionVector += hydraDirectionVector;
                 if (directionVector != Vector3.zero)
                 {
                     // Get the length of the directon vector and then normalize it
