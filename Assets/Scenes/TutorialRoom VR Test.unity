@@ -206,7 +206,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh23994
+  m_Name: pb_Mesh17914
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -568,7 +568,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 463458, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 463458, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
       propertyPath: m_LocalPosition.z
@@ -597,6 +597,34 @@ Prefab:
     - target: {fileID: 463458, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463460, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
+      propertyPath: jumping.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 14363460, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
+      propertyPath: m_Height
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 14363460, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
+      propertyPath: m_Center.y
+      value: -0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463456, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
+      propertyPath: axes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463456, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
+      propertyPath: sensitivityY
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463456, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
+      propertyPath: minimumY
+      value: -89
+      objectReference: {fileID: 0}
+    - target: {fileID: 11463456, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
+      propertyPath: maximumY
+      value: 89
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ff42ecd8706e4d6478ce74033f2f16b5, type: 2}
@@ -1701,7 +1729,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh24030
+  m_Name: pb_Mesh17936
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
