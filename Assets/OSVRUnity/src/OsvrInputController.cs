@@ -86,7 +86,7 @@ namespace OSVR
                     theForwardDirection.y = 0;
                     theForwardDirection.Normalize();
                     motor.inputMoveDirection = viewerDirection.rotation * directionVector;
-                    motor.inputJump = Input.GetButton("Jump");
+                    motor.inputJump = Input.GetButton("Jump") || SixenseInput.Controllers[1].GetButton(SixenseButtons.ONE);
                 }
 
             }
