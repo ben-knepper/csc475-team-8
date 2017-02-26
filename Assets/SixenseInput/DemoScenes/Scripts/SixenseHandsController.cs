@@ -55,7 +55,7 @@ public class SixenseHandsController : MonoBehaviour
 	/** Updates hand position and rotation */
 	void UpdateHand( SixenseHand hand )
 	{
-		bool bControllerActive = IsControllerActive( hand.m_controller );
+		bool bControllerActive = IsControllerActive( hand.m_controller);
 
 		if ( bControllerActive )
 		{

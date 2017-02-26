@@ -79,7 +79,7 @@ public class SixenseHand : MonoBehaviour
 		fTriggerVal = Mathf.Lerp( m_fLastTriggerVal, fTriggerVal, 0.1f );
 		m_fLastTriggerVal = fTriggerVal;
 		
-		if ( fTriggerVal > 0.01f )
+		if ( fTriggerVal > 0.01f || Input.GetButton("Fire1"))
 		{
 			m_animator.SetBool( "Fist", true );
 		}
