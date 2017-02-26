@@ -476,7 +476,8 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
-  cloudServicesEnabled: {}
+  cloudServicesEnabled:
+    UNet: 1
   cloudProjectId: 21268528-b71a-46ea-b57b-ce919bacd5c9
   projectName: CSC475 Team 8 (1)
   organizationId: benjer3
