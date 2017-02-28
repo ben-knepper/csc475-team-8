@@ -6,19 +6,28 @@ using UnityEngine;
 public class Drone : Enemy
 {
 
-    public Animator _bobbingAnimator;
-    public float _bobbingAnimatorSpeed = 1f;
-    public float _rotationTorque = 10f;
-    public float _idleChangeRotatingChance = 0.1f;
+    
+    public GameObject _bobbingTracker;
 
+    public float _bobbingAnimatorSpeed = 1f;
+    public float _rotationTorque = 50f;
+    public float _rotationRange = 45f; // distance from _idleRotateCenter
+    public float _minIdleRotateStopTime = 1f;
+    public float _maxIdleRotateStopTime = 5f;
+
+
+    private Animator _bobbingAnimator;
 
     private bool _isRotating;
     private bool _isRotatingClockwise;
+    private float _idleRotateCenter;
 
 
     protected override void Awake()
     {
         base.Awake();
+
+        _bobbingAnimator = _bobbingTracker.GetComponent<Animator>();
     }
 
     // Use this for initialization
@@ -32,6 +41,15 @@ public class Drone : Enemy
     {
         base.Update();
 	}
+
+    protected void FixedUpdate()
+    {
+        if (_bobbingAnimator.speed > 0)
+            transform.position = new Vector3(
+                transform.position.x,
+                _bobbingTracker.transform.localPosition.y,
+                transform.position.z);
+    }
 
 
     protected override void Attack()
@@ -52,6 +70,8 @@ public class Drone : Enemy
     {
         _bobbingAnimator.speed = _bobbingAnimatorSpeed;
         _isRotating = false;
+        _isRotatingClockwise = UnityEngine.Random.value < 0.5f;
+        _idleRotateCenter = transform.rotation.eulerAngles.y;
 
         StartCoroutine("UpdateIdle");
     }
@@ -60,23 +80,36 @@ public class Drone : Enemy
     {
         while (Behavior == Behavior.Idling)
         {
-            bool changingRotating = UnityEngine.Random.value < _idleChangeRotatingChance;
-
-            if (changingRotating)
+            if (_isRotating)
             {
-                if (_isRotating)
+
+                // stop rotating by "pushing" in the opposite direction
+                _rb.AddTorque(transform.up * (_isRotatingClockwise ? _rotationTorque : -_rotationTorque));
+
+                float angleDiff = Mathf.Abs(transform.rotation.eulerAngles.y - _idleRotateCenter);
+                if (angleDiff > _rotationRange || (360 - angleDiff) > _rotationRange)
                 {
-                    // stop rotating by "pushing" in the opposite direction
-                    _rb.AddTorque(transform.up * (_isRotatingClockwise ? _rotationTorque : -_rotationTorque));
+                    Debug.Log("Stopping");
+
+                    _isRotating = false;
+                    _isRotatingClockwise = !_isRotatingClockwise;
+
+                    float stopTime = UnityEngine.Random.Range(_minIdleRotateStopTime, _maxIdleRotateStopTime);
+                    yield return new WaitForSecondsRealtime(stopTime);
                 }
                 else
                 {
-                    _isRotatingClockwise = UnityEngine.Random.value < 0.5f;
-                    _rb.AddTorque(transform.up * (_isRotatingClockwise ? -_rotationTorque : _rotationTorque));
+                    yield return new WaitForSeconds(0.1f);
                 }
             }
+            else
+            {
+                _rb.AddTorque(transform.up * (_isRotatingClockwise ? -_rotationTorque : _rotationTorque));
 
-            yield return new WaitForSeconds(0.1f);
+                _isRotating = true;
+
+                Debug.Log("Rotating " + (_isRotatingClockwise ? "clockwise" : "counterclockwise"));
+            }
         }
 
         yield break;
