@@ -2,24 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mob : MonoBehaviour
+public abstract class Mob : MonoBehaviour
 {
+
+    protected Rigidbody _rb;
+
 
     public int _maxHealth = 2;
     public float _moveSpeed = 5f;
 
 
-    private int _health;
+    public int Health { get; protected set; }
 
 
-	// Use this for initialization
-	void Start()
+    protected virtual void Awake()
+    {
+        _rb = GetComponent<Rigidbody>();
+    }
+
+    // Use this for initialization
+    protected virtual void Start()
     {
 		
 	}
 	
 	// Update is called once per frame
-	void Update()
+	protected virtual void Update()
     {
 		
 	}

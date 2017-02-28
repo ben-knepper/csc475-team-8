@@ -5,15 +5,21 @@ using UnityEngine;
 public class Player : Mob
 {
 
-	// Use this for initialization
-	void Start()
+
+    protected override void Awake()
     {
-		
+        base.Awake();
+    }
+
+    // Use this for initialization
+    protected override void Start()
+    {
+        base.Start();
 	}
 	
 	// Update is called once per frame
-	void Update()
+	protected override void Update()
     {
-		
+        base.Update();
 	}
 }
