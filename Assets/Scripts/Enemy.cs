@@ -17,6 +17,12 @@ public enum Behavior
 public abstract class Enemy : Mob
 {
     
+    protected delegate void CleanupFunc();
+    
+
+    protected CleanupFunc _cleanupFuncs;
+
+
     public GameObject Target { get; protected set; }
 
 
@@ -61,6 +67,10 @@ public abstract class Enemy : Mob
 
     private void UpdateBehavior()
     {
+        // clean up the states modified by behavior handlers
+        if (_cleanupFuncs != null)
+            _cleanupFuncs.Invoke();
+
         switch (Behavior)
         {
             case Behavior.Inactive:

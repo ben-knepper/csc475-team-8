@@ -1955,8 +1955,8 @@ MonoBehaviour:
   MouseLookToggleKey: 109
   useMouseLook: 1
   axes: 0
-  sensitivityX: 3
-  sensitivityY: 3
+  sensitivityX: 5
+  sensitivityY: 5
   minimumX: -360
   maximumX: 360
   minimumY: -89

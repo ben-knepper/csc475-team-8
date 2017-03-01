@@ -7,10 +7,13 @@ public abstract class Mob : MonoBehaviour
 
     protected delegate void UpdateFunc();
 
+
     protected Rigidbody _rb;
     protected UpdateFunc _updateFuncs;
 
 
+    [Header("Basic Mob Settings")]
+    [Space(5)]
     public int _maxHealth = 2;
     public float _moveSpeed = 5f;
 
