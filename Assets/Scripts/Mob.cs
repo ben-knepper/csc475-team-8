@@ -5,7 +5,10 @@ using UnityEngine;
 public abstract class Mob : MonoBehaviour
 {
 
+    protected delegate void UpdateFunc();
+
     protected Rigidbody _rb;
+    protected UpdateFunc _updateFuncs;
 
 
     public int _maxHealth = 2;
@@ -31,4 +34,11 @@ public abstract class Mob : MonoBehaviour
     {
 		
 	}
+
+    protected virtual void FixedUpdate()
+    {
+        if (_updateFuncs != null)
+            _updateFuncs.Invoke();
+    }
+
 }

@@ -195,12 +195,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 2
   _moveSpeed: 5
-  _bobbingTracker: {fileID: 788787309}
-  _bobbingAnimatorSpeed: 1
-  _rotationTorque: 10
-  _rotationRange: 45
-  _minIdleRotateStopTime: 1
-  _maxIdleRotateStopTime: 5
+  _hoverHeight: 3.2
+  _bobbingDistance: 0.1
+  _bobbingSpeed: 0.2
+  _idleRotationRange: 90
+  _minIdleRotateStopTime: 0.1
+  _maxIdleRotateStopTime: 1
+  _rotationSpeed: 10
 --- !u!54 &716875679
 Rigidbody:
   m_ObjectHideFlags: 0

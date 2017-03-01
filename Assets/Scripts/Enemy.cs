@@ -53,7 +53,12 @@ public abstract class Enemy : Mob
     {
         base.Update();
     }
-		
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
     private void UpdateBehavior()
     {
         switch (Behavior)

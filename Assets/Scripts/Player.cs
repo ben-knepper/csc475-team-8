@@ -22,4 +22,10 @@ public class Player : Mob
     {
         base.Update();
 	}
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
 }
