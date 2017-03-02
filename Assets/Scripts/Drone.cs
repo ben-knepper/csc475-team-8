@@ -176,7 +176,8 @@ public class Drone : Enemy
                     _idleRotationCurrentTime = _idleRotationEndTime;
 
                 float t = _idleRotationCurrentTime / _idleRotationEndTime;
-                float smoothedT = t * t * t * (t * (6f * t - 15f) + 10f);
+                //float smoothedT = t * t * t * (t * (6f * t - 15f) + 10f);
+                float smoothedT = t * t * (3f - 2f * t);
                 transform.rotation = Quaternion.Lerp(startQuaternion, endQuaternion, smoothedT);
             };
             _updateFuncs += _rotateFunc;
