@@ -22,6 +22,11 @@ public abstract class Enemy : Mob
 
     protected CleanupFunc _cleanupFuncs;
 
+    [Space(10)]
+    [Header("Basic Enemy Fields")]
+    public GameObject player;
+    public GameObject playerCamera;
+
 
     public GameObject Target { get; protected set; }
 

@@ -12,7 +12,7 @@ public abstract class Mob : MonoBehaviour
     protected UpdateFunc _updateFuncs;
 
 
-    [Header("Basic Mob Settings")]
+    [Header("Basic Mob Fields")]
     [Space(5)]
     public int _maxHealth = 2;
     public float _moveSpeed = 5f;

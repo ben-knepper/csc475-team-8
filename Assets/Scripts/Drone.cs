@@ -36,15 +36,10 @@ public class Drone : Enemy
     // death fields
     [Space(10)]
     [Header("Death")]
-    public float _deathTimePersistent = 30f;
-    public float _deathFadeTime = 5f;
+    public float _minDespawnTime = 30f;
+    public float _minDespawnDistance = 20f;
+    public float _minDespawnPlayerAngle = 120f;
     public GameObject _deathSparkParticles;
-    public Material _droneMaterial;
-
-    private UpdateFunc _deathFunc;
-    private float _deathFadeCurrentTime;
-    private Color _droneMaterialInitColor;
-    private Color _droneMaterialEndColor;
 
 
     private Collider _collider;
@@ -60,7 +55,7 @@ public class Drone : Enemy
         _idleRotationBounds = _idleRotationRange / 2;
 
         _bobbingPeriod = 1 / _bobbingSpeed;
-        _bobbingFunc = _bobbingFunc;
+        _bobbingFunc = Bob;
     }
 
     // Use this for initialization
@@ -113,33 +108,20 @@ public class Drone : Enemy
 
     private IEnumerator UpdateDying()
     {
-        // wait to start disappearing
-        yield return new WaitForSecondsRealtime(_deathTimePersistent);
+        // wait to start detecting whether to despawn
+        yield return new WaitForSecondsRealtime(_minDespawnTime);
 
-        Debug.Log("Drone " + GetInstanceID() + " fading");
-        _deathFadeCurrentTime = 0;
-        _droneMaterialInitColor = _droneMaterial.color;
-        _droneMaterialEndColor = new Color(
-            _droneMaterialInitColor.r,
-            _droneMaterialInitColor.g,
-            _droneMaterialInitColor.b,
-            255);
-        _deathFunc = () =>
+        // then wait until the player is far enough away and not looking at the drone
+        yield return new WaitUntil(() =>
         {
-            _deathFadeCurrentTime += Time.deltaTime;
-            if (_deathFadeCurrentTime > _deathFadeTime)
-                _deathFadeCurrentTime = _deathFadeTime;
-            float t = _deathFadeCurrentTime / _deathFadeTime;
-            
-            _droneMaterial.color = Color.Lerp(
-                _droneMaterialInitColor, _droneMaterialEndColor, t);
-        };
-        _updateFuncs += _deathFunc;
+            Vector3 playerToDrone = transform.position - playerCamera.transform.position;
+            float distanceToPlayer = playerToDrone.magnitude;
+            float angleToPlayer = Mathf.Abs(Vector3.Angle(playerCamera.transform.forward, playerToDrone));
 
-        yield return new WaitUntil(() => _deathFadeCurrentTime >= _deathFadeTime);
-
-        _updateFuncs -= _deathFunc;
+            return distanceToPlayer >= _minDespawnDistance && angleToPlayer > _minDespawnPlayerAngle;
+        });
         
+        // finally despawn the drone
         Debug.Log("Drone " + GetInstanceID() + " being destroyed");
         Destroy(gameObject);
 

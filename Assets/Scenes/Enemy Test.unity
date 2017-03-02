@@ -169,7 +169,7 @@ Transform:
   m_GameObject: {fileID: 78206302}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 4, y: 1, z: 4}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -208,6 +208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 2
   _moveSpeed: 5
+  player: {fileID: 1207202867}
+  playerCamera: {fileID: 1207202868}
   _hoverHeight: 3.2
   _bobbingDistance: 0.1
   _bobbingSpeed: 0.2
@@ -215,10 +217,10 @@ MonoBehaviour:
   _minIdleRotateStopTime: 0.1
   _maxIdleRotateStopTime: 0.8
   _rotationSpeed: 15
-  _deathTimePersistent: 10
-  _deathFadeTime: 5
+  _minDespawnTime: 30
+  _minDespawnDistance: 10
+  _minDespawnPlayerAngle: 100
   _deathSparkParticles: {fileID: 2022076812}
-  _droneMaterial: {fileID: 2100000, guid: 9468cfbf407387c4d8fef60308588e42, type: 2}
 --- !u!54 &716875679
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -280,6 +282,16 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66db205f4eeeb2f4b88f4cdec0777570, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1207202867 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1150593093628662, guid: 66db205f4eeeb2f4b88f4cdec0777570,
+    type: 2}
+  m_PrefabInternal: {fileID: 1207202866}
+--- !u!1 &1207202868 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1728035453506382, guid: 66db205f4eeeb2f4b88f4cdec0777570,
+    type: 2}
+  m_PrefabInternal: {fileID: 1207202866}
 --- !u!1001 &1539209633
 Prefab:
   m_ObjectHideFlags: 0
@@ -432,11 +444,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.cnt2
-      value: 40
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.cntmax2
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.m_BurstCount
@@ -444,7 +456,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.time0
-      value: 0.2
+      value: 1.6
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.cnt0
@@ -452,23 +464,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.cntmax0
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.time1
-      value: 0.5
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.cnt1
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.cntmax1
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: EmissionModule.time2
-      value: 1.6
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 197494, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: m_IsActive
@@ -481,6 +493,14 @@ Prefab:
     - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
       propertyPath: looping
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19848952, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8af7fc23449fb134587debd98a00604a, type: 2}
