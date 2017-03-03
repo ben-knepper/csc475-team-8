@@ -74,7 +74,7 @@ public class Drone : Enemy
     {
         base.FixedUpdate();
 
-        if (Input.GetButton("Fire1"))
+        if (Input.GetButton("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER))
             Behavior = Behavior.Dying;
     }
 
