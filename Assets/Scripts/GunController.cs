@@ -9,6 +9,8 @@ public class GunController : MonoBehaviour {
     public float hitForce = 100f;                                       // Amount of force which will be added to objects with a rigidbody shot by the player
     public Transform gunEnd;                                            // Holds a reference to the gun end object, marking the muzzle location of the gun
 
+    //public float speed = 4f;
+
     private WaitForSeconds shotDuration = new WaitForSeconds(0.07f);    // WaitForSeconds object used by our ShotEffect coroutine, determines time laser line will remain visible
     private AudioSource gunAudio;                                       // Reference to the audio source which will play our shooting sound effect
     private LineRenderer laserLine;                                     // Reference to the LineRenderer component which will display our laserline
@@ -26,20 +28,21 @@ public class GunController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        
         // Check if the player has pressed the fire button and if enough time has elapsed since they last fired
 
         if (Input.GetButtonDown("Fire1") && Time.time > nextFire)
         {
             // Update the time when our player can fire next
             nextFire = Time.time + fireRate;
-
             // Start our ShotEffect coroutine to turn our laser line on and off
             StartCoroutine(ShotEffect());
             // Create a vector at the gun end
             Vector3 rayOrigin = gunEnd.transform.position;
             // Declare a raycast hit to store information about what our raycast has hit
             RaycastHit hit;
+            //float step = speed * Time.deltaTime;
+            //transform.position = Vector3.MoveTowards(transform.position, gunEnd.transform.forward, step);
 
             // Set the start position for our visual effect for our laser to the position of gunEnd
             laserLine.SetPosition(0, gunEnd.position);
