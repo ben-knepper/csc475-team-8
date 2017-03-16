@@ -12,7 +12,7 @@ public abstract class Mob : MonoBehaviour
     protected UpdateFunc _updateFuncs;
 
 
-    [Header("Basic Mob Fields")]
+    [Header("Mob Base")]
     [Space(5)]
     public int _maxHealth = 2;
     public float _moveSpeed = 5f;
@@ -42,6 +42,16 @@ public abstract class Mob : MonoBehaviour
     {
         if (_updateFuncs != null)
             _updateFuncs.Invoke();
+    }
+
+
+    public virtual void AddDamage(int damage)
+    {
+        Health -= damage;
+        if (Health < 0)
+            Health = 0;
+        else if (Health > _maxHealth)
+            Health = _maxHealth;
     }
 
 }
