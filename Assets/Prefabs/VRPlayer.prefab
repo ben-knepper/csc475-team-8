@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4132870659173358}
   - component: {fileID: 114528592451932638}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ClientKit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,7 +35,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4951068067357984}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Ring02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,7 +54,7 @@ GameObject:
   - component: {fileID: 114097728568021856}
   - component: {fileID: 114655204884489280}
   - component: {fileID: 114915418065307056}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: VRFirstPersonController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4488298645130620}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_RingTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4400399736462812}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Ring03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4765841068157872}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Middle02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000722135241940}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -129,7 +129,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4121039441171760}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_MiddleTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4236780416808700}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Ring03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 4274176008334278}
   - component: {fileID: 95583196201366828}
   - component: {fileID: 114273350704469190}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand - Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4718287456010476}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_RingTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4147693218327266}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: VRPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4611005608780038}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Middle02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4642236330010660}
   - component: {fileID: 114793711356697248}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SixenseInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,7 +238,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4387287866825998}
   - component: {fileID: 114189924229282070}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Recenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4115958276809130}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Thumb03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -268,7 +268,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4736022987463232}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Thumb03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -283,7 +283,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4823680441824974}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_PointerTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -298,7 +298,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4473813889040604}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pinky02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +313,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4389689127726160}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Thumb02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4776469620557318}
   - component: {fileID: 114614261808584062}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: VREye0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4208507788584202}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Thumb02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4488194847941730}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pointer01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4126884929227318}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pinky01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4980492472018370}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pinky03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4857218853164734}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Middle01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +419,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4545461581170700}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pointer03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4336430646648932}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pinky02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -449,7 +449,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4363472803742990}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_MiddleTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4217403950722154}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_PinkyTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -479,7 +479,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4256552647331660}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Palm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,7 +494,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4426776613409280}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Palm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -509,7 +509,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4195618717118954}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Ring01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -524,7 +524,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4442036697575486}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Middle01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -539,7 +539,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4504248456156588}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_ThumbTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -554,7 +554,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4981665807071724}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_PinkyTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +569,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4828673565852524}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Ring01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,7 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4376131680285558}
   - component: {fileID: 137717865164202150}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand_MDL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -600,7 +600,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4758160356223730}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pointer02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +615,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4718274583187190}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Ring02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -631,7 +631,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4655028059312384}
   - component: {fileID: 114812967833039966}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: VRDisplayTracked
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -648,7 +648,7 @@ GameObject:
   - component: {fileID: 4335868146133254}
   - component: {fileID: 33817609015041504}
   - component: {fileID: 23142328299314376}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -663,7 +663,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4581806461504362}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_ThumbTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -679,7 +679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4458768441355608}
   - component: {fileID: 137066384619515136}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand_MDL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -694,7 +694,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4124603803437296}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -709,7 +709,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4942011455276548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Wrist
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 4873430213945428}
   - component: {fileID: 20445377694665830}
   - component: {fileID: 114122811003660998}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: VRViewer0
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4242819474234410}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Middle03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -756,7 +756,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4580724042847250}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Thumb01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -771,7 +771,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4179713767447894}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pointer01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -788,7 +788,7 @@ GameObject:
   - component: {fileID: 4036799501290526}
   - component: {fileID: 20039946925996206}
   - component: {fileID: 114960576824881276}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: VRSurface0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -803,7 +803,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4411754049830564}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +820,7 @@ GameObject:
   - component: {fileID: 4239661537254376}
   - component: {fileID: 95318946045181898}
   - component: {fileID: 114182060974078438}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hand - Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -835,7 +835,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4181464755274120}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pinky01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -850,7 +850,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4605643360534016}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pinky03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -865,7 +865,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4879041706366286}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Thumb01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -880,7 +880,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4842387519673356}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_PointerTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -895,7 +895,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4402551101939004}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pointer02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -911,7 +911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4474109158230782}
   - component: {fileID: 114760230161814156}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: HandsController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -926,7 +926,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4038597368655500}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Pointer03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -941,7 +941,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4396888568751346}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: JNT_Middle03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1973,6 +1973,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cachedTransform: {fileID: 0}
+  _showCursor: 1
 --- !u!114 &114182060974078438
 MonoBehaviour:
   m_ObjectHideFlags: 1

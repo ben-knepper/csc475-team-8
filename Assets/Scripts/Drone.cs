@@ -6,9 +6,15 @@ using UnityEngine;
 public class Drone : Enemy
 {
 
+    // base
+    [Space(10)]
+    [Header("Drone Base")]
+    public GameObject _spotlight;
+
+
     // bobbing fields
     [Space(10)]
-    [Header("_bobbingFuncbing")]
+    [Header("Bobbing")]
     public float _hoverHeight = 3.2f;
     public float _bobbingDistance = 0.1f; // from _hoverHeight to top/bottom of bob
     public float _bobbingSpeed = 0.2f; // bobbing frequency
@@ -50,7 +56,7 @@ public class Drone : Enemy
         base.Awake();
 
         _collider = GetComponent<Collider>();
-        _collider.enabled = false;
+        //_collider.enabled = false;
 
         _idleRotationBounds = _idleRotationRange / 2;
 
@@ -74,8 +80,8 @@ public class Drone : Enemy
     {
         base.FixedUpdate();
 
-        if (Input.GetButton("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER))
-            Behavior = Behavior.Dying;
+        //if (Input.GetButton("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER))
+        //    Behavior = Behavior.Dying;
     }
 
 
@@ -99,8 +105,9 @@ public class Drone : Enemy
 
         _rb.isKinematic = false;
         _rb.useGravity = true;
-        _collider.enabled = true;
+        //_collider.enabled = true;
 
+        _spotlight.SetActive(false);
         _deathSparkParticles.SetActive(true);
 
         StartCoroutine(UpdateDying());
@@ -114,9 +121,9 @@ public class Drone : Enemy
         // then wait until the player is far enough away and not looking at the drone
         yield return new WaitUntil(() =>
         {
-            Vector3 playerToDrone = transform.position - playerCamera.transform.position;
+            Vector3 playerToDrone = transform.position - _playerCamera.transform.position;
             float distanceToPlayer = playerToDrone.magnitude;
-            float angleToPlayer = Mathf.Abs(Vector3.Angle(playerCamera.transform.forward, playerToDrone));
+            float angleToPlayer = Mathf.Abs(Vector3.Angle(_playerCamera.transform.forward, playerToDrone));
 
             return distanceToPlayer >= _minDespawnDistance && angleToPlayer > _minDespawnPlayerAngle;
         });

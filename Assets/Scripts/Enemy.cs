@@ -22,10 +22,11 @@ public abstract class Enemy : Mob
 
     protected CleanupFunc _cleanupFuncs;
 
+
     [Space(10)]
-    [Header("Basic Enemy Fields")]
-    public GameObject player;
-    public GameObject playerCamera;
+    [Header("Enemy Base")]
+    public GameObject _player;
+    public GameObject _playerCamera;
 
 
     public GameObject Target { get; protected set; }
@@ -116,5 +117,14 @@ public abstract class Enemy : Mob
     protected abstract void Attack();
 
     protected abstract void Die();
+
+
+    public override void AddDamage(int damage)
+    {
+        base.AddDamage(damage);
+
+        if (Health == 0)
+            Behavior = Behavior.Dying;
+    }
 
 }
