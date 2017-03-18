@@ -25,8 +25,8 @@ public abstract class Enemy : Mob
 
     [Space(10)]
     [Header("Enemy Base")]
-    public GameObject _player;
-    public GameObject _playerCamera;
+    public Player _player;
+    //public GameObject _playerCamera;
 
 
     public GameObject Target { get; protected set; }
@@ -50,6 +50,8 @@ public abstract class Enemy : Mob
     protected override void Awake()
     {
         base.Awake();
+
+        Health = _maxHealth;
     }
 
     // Use this for initialization
@@ -125,6 +127,12 @@ public abstract class Enemy : Mob
 
         if (Health == 0)
             Behavior = Behavior.Dying;
+    }
+
+
+    public override string ToString()
+    {
+        return "Enemy " + GetInstanceID();
     }
 
 }

@@ -54,13 +54,13 @@ public class GunController : MonoBehaviour {
                 laserLine.SetPosition(1, hit.point);
 
                 // Get a reference to a health script attached to the collider we hit
-                Drone drone = hit.collider.GetComponent<Drone>();
+                Enemy enemy = hit.collider.GetComponent<Enemy>();
 
                 // If there was a health script attached
-                if (drone != null)
+                if (enemy != null)
                 {
                     // Call the damage function of that script, passing in our gunDamage variable
-                    drone.AddDamage(gunDamage);
+                    enemy.AddDamage(gunDamage);
                 }
 
                 // Check if the object we hit has a rigidbody attached

@@ -101,7 +101,7 @@ public class Drone : Enemy
 
     protected override void Die()
     {
-        Debug.Log("Drone " + GetInstanceID() + " dying");
+        Debug.Log(this + " dying");
 
         _rb.isKinematic = false;
         _rb.useGravity = true;
@@ -118,18 +118,20 @@ public class Drone : Enemy
         // wait to start detecting whether to despawn
         yield return new WaitForSecondsRealtime(_minDespawnTime);
 
+        Debug.Log(this + " ready to despawn");
+
         // then wait until the player is far enough away and not looking at the drone
         yield return new WaitUntil(() =>
         {
-            Vector3 playerToDrone = transform.position - _playerCamera.transform.position;
+            Vector3 playerToDrone = transform.position - _player._camera.transform.position;
             float distanceToPlayer = playerToDrone.magnitude;
-            float angleToPlayer = Mathf.Abs(Vector3.Angle(_playerCamera.transform.forward, playerToDrone));
+            float angleToPlayer = Mathf.Abs(Vector3.Angle(_player._camera.transform.forward, playerToDrone));
 
             return distanceToPlayer >= _minDespawnDistance && angleToPlayer > _minDespawnPlayerAngle;
         });
         
         // finally despawn the drone
-        Debug.Log("Drone " + GetInstanceID() + " being destroyed");
+        Debug.Log(this + " being destroyed");
         Destroy(gameObject);
 
         yield break;
@@ -137,7 +139,7 @@ public class Drone : Enemy
 
     protected override void Idle()
     {
-        Debug.Log("Drone " + GetInstanceID() + " idling");
+        Debug.Log(this + " idling");
 
         _idleRotationCenter = transform.rotation.eulerAngles.y;
         _idleLastRotationAngle = _idleRotationCenter;
@@ -213,6 +215,12 @@ public class Drone : Enemy
     protected override void Seek()
     {
 
+    }
+
+
+    public override string ToString()
+    {
+        return "Drone " + GetInstanceID();
     }
 
 }

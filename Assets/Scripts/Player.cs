@@ -5,10 +5,15 @@ using UnityEngine;
 public class Player : Mob
 {
 
+    public Camera _camera;
+
 
     protected override void Awake()
     {
         base.Awake();
+
+        if (_camera == null)
+            _camera = gameObject.GetComponentInChildren<Camera>();
     }
 
     // Use this for initialization
@@ -26,6 +31,12 @@ public class Player : Mob
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+
+    public override string ToString()
+    {
+        return "Player " + GetInstanceID();
     }
 
 }

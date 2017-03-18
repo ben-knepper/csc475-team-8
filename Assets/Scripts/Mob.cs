@@ -52,6 +52,14 @@ public abstract class Mob : MonoBehaviour
             Health = 0;
         else if (Health > _maxHealth)
             Health = _maxHealth;
+
+        Debug.Log(this + " hit for " + damage + " damage (Health = " + Health + ")");
+    }
+
+
+    public override string ToString()
+    {
+        return "Mob " + GetInstanceID();
     }
 
 }
