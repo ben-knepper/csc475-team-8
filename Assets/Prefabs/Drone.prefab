@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 4399955092439122}
   - component: {fileID: 33785426824143572}
   - component: {fileID: 23921976078321406}
+  - component: {fileID: 64332683808175156}
   m_Layer: 8
   m_Name: PA_DroneWingLeft
   m_TagString: Untagged
@@ -55,6 +56,7 @@ GameObject:
   - component: {fileID: 4274448398894476}
   - component: {fileID: 33152172453489822}
   - component: {fileID: 23075172435932430}
+  - component: {fileID: 64600314868510236}
   m_Layer: 8
   m_Name: PA_DroneWingRight
   m_TagString: Untagged
@@ -187,9 +189,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1923277800686458}
-  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 4, y: 3.2, z: -4}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: 0, y: 0.68984705, z: 0, w: 0.72395515}
+  m_LocalPosition: {x: 10.37, y: 3.85, z: 11.93}
+  m_LocalScale: {x: 2.4, y: 2.4, z: 2.4}
   m_Children:
   - {fileID: 4733071247098838}
   - {fileID: 4648959069620348}
@@ -197,7 +199,7 @@ Transform:
   - {fileID: 4810146495225406}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 87.23601, z: 0}
 --- !u!4 &4399955092439122
 Transform:
   m_ObjectHideFlags: 1
@@ -573,6 +575,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!64 &64332683808175156
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132007500510820}
+  m_Material: {fileID: 13400000, guid: 39168166c520a5642af51748b847a519, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300002, guid: f14b6f7503476eb4e9b2afc1cc05e719, type: 3}
+--- !u!64 &64600314868510236
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1143005153566584}
+  m_Material: {fileID: 13400000, guid: 39168166c520a5642af51748b847a519, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300006, guid: f14b6f7503476eb4e9b2afc1cc05e719, type: 3}
 --- !u!64 &64955817756337140
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -583,7 +613,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
+  m_Convex: 1
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: f14b6f7503476eb4e9b2afc1cc05e719, type: 3}
@@ -617,13 +647,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxHealth: 2
   _moveSpeed: 5
-  player: {fileID: 0}
-  playerCamera: {fileID: 0}
+  _player: {fileID: 0}
   _spotlight: {fileID: 1071343994507838}
   _hoverHeight: 3.2
   _bobbingDistance: 0.1
   _bobbingSpeed: 0.2
-  _idleRotationRange: 90
+  _idleRotationRange: 60
   _minIdleRotateStopTime: 0.1
   _maxIdleRotateStopTime: 0.8
   _rotationSpeed: 15

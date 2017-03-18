@@ -16,6 +16,9 @@ public enum Behavior
 
 public abstract class Enemy : Mob
 {
+
+    protected static Player _player;
+
     
     protected delegate void CleanupFunc();
     
@@ -23,10 +26,9 @@ public abstract class Enemy : Mob
     protected CleanupFunc _cleanupFuncs;
 
 
-    [Space(10)]
-    [Header("Enemy Base")]
-    public Player _player;
-    //public GameObject _playerCamera;
+    //[Space(10)]
+    //[Header("Enemy Base")]
+    //public Player _player;
 
 
     public GameObject Target { get; protected set; }
@@ -50,6 +52,9 @@ public abstract class Enemy : Mob
     protected override void Awake()
     {
         base.Awake();
+
+        if (_player == null)
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
         Health = _maxHealth;
     }
