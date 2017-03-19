@@ -55,9 +55,10 @@ GameObject:
   - component: {fileID: 114655204884489280}
   - component: {fileID: 114915418065307056}
   - component: {fileID: 114548728890735886}
+  - component: {fileID: 114672573094136230}
   m_Layer: 10
   m_Name: VRFirstPersonController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -207,10 +208,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4147693218327266}
-  - component: {fileID: 114032815701325924}
   m_Layer: 10
   m_Name: VRPlayer
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2320,20 +2320,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114032815701325924
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1150593093628662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af139d372ff31547928e460ac085dc9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 2
-  _moveSpeed: 5
-  _camera: {fileID: 0}
 --- !u!114 &114097728568021856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2452,6 +2438,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72edc3749c0d8fa4b851aeb899f16770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114672573094136230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056943978188630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af139d372ff31547928e460ac085dc9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 2
+  _moveSpeed: 5
+  _camera: {fileID: 0}
 --- !u!114 &114760230161814156
 MonoBehaviour:
   m_ObjectHideFlags: 1
