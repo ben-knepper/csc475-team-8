@@ -41,7 +41,7 @@ public class PickUp : MonoBehaviour {
 
 	void pickObjectUp() {
 
-		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER)) {
+		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER)) {
 
 			int x = Screen.width / 2;
 			int y = Screen.height / 2;
@@ -62,7 +62,7 @@ public class PickUp : MonoBehaviour {
 
 	void checkDrop() {
 
-		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER)) {
+		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER)) {
 			dropObject ();
 
 		}
