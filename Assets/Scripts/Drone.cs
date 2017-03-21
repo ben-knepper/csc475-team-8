@@ -39,6 +39,16 @@ public class Drone : Enemy
     private float _idleLastRotationAngle;
 
 
+    // attacking fields
+    [Space(10)]
+    [Header("Attacking")]
+    public float _secsBetweenShots = 2f; // assumes that the _chargingShotAnimator animation occurs over 1 second
+    public Animator _chargingShotAnimator;
+    public GameObject _bullet;
+
+    private UpdateFunc _attackFunc;
+
+
     // death fields
     [Space(10)]
     [Header("Death")]
@@ -79,9 +89,6 @@ public class Drone : Enemy
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-
-        //if (Input.GetButton("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER))
-        //    Behavior = Behavior.Dying;
     }
 
 
@@ -96,45 +103,7 @@ public class Drone : Enemy
 
     protected override void Attack()
     {
-        throw new NotImplementedException();
-    }
-
-    protected override void Die()
-    {
-        Debug.Log(this + " dying");
-
-        _rb.isKinematic = false;
-        _rb.useGravity = true;
-        //_collider.enabled = true;
-
-        _spotlight.SetActive(false);
-        _deathSparkParticles.SetActive(true);
-
-        StartCoroutine(UpdateDying());
-    }
-
-    private IEnumerator UpdateDying()
-    {
-        // wait to start detecting whether to despawn
-        yield return new WaitForSecondsRealtime(_minDespawnTime);
-
-        Debug.Log(this + " ready to despawn");
-
-        // then wait until the player is far enough away and not looking at the drone
-        yield return new WaitUntil(() =>
-        {
-            Vector3 playerToDrone = transform.position - _player._camera.transform.position;
-            float distanceToPlayer = playerToDrone.magnitude;
-            float angleToPlayer = Mathf.Abs(Vector3.Angle(_player._camera.transform.forward, playerToDrone));
-
-            return distanceToPlayer >= _minDespawnDistance && angleToPlayer > _minDespawnPlayerAngle;
-        });
-        
-        // finally despawn the drone
-        Debug.Log(this + " being destroyed");
-        Destroy(gameObject);
-
-        yield break;
+        Debug.Log(this + " attacking");
     }
 
     protected override void Idle()
@@ -146,7 +115,7 @@ public class Drone : Enemy
 
         _updateFuncs += _bobbingFunc;
         _cleanupFuncs += CleanupIdling;
-        StartCoroutine("UpdateIdle");
+        StartCoroutine(UpdateIdle());
     }
     
     private IEnumerator UpdateIdle()
@@ -215,6 +184,44 @@ public class Drone : Enemy
     protected override void Seek()
     {
 
+    }
+
+    protected override void Die()
+    {
+        Debug.Log(this + " dying");
+
+        _rb.isKinematic = false;
+        _rb.useGravity = true;
+        //_collider.enabled = true;
+
+        _spotlight.SetActive(false);
+        _deathSparkParticles.SetActive(true);
+
+        StartCoroutine(UpdateDying());
+    }
+
+    private IEnumerator UpdateDying()
+    {
+        // wait to start detecting whether to despawn
+        yield return new WaitForSecondsRealtime(_minDespawnTime);
+
+        Debug.Log(this + " ready to despawn");
+
+        // then wait until the player is far enough away and not looking at the drone
+        yield return new WaitUntil(() =>
+        {
+            Vector3 playerToDrone = transform.position - _player._camera.transform.position;
+            float distanceToPlayer = playerToDrone.magnitude;
+            float angleToPlayer = Mathf.Abs(Vector3.Angle(_player._camera.transform.forward, playerToDrone));
+
+            return distanceToPlayer >= _minDespawnDistance && angleToPlayer > _minDespawnPlayerAngle;
+        });
+
+        // finally despawn the drone
+        Debug.Log(this + " being destroyed");
+        Destroy(gameObject);
+
+        yield break;
     }
 
 
