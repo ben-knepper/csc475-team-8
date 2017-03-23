@@ -16,19 +16,21 @@ public enum Behavior
 
 public abstract class Enemy : Mob
 {
-
-    protected static Player _player;
-
     
     protected delegate void CleanupFunc();
-    
-
     protected CleanupFunc _cleanupFuncs;
 
 
-    //[Space(10)]
-    //[Header("Enemy Base")]
-    //public Player _player;
+    [Space(10)]
+    [Header("Enemy Base")]
+    public Behavior _initialBehavior = Behavior.Idling;
+    public float _behaviorUpdateInterval = 0.1f;
+    public GameObject[] _detectors;
+    public float[] _detectorAngleSpans;
+    public float[] _detectorRanges;
+
+    protected static Player _player;
+    protected Vector3 _lastKnownPlayerPosition;
 
 
     public GameObject Target { get; protected set; }
@@ -43,7 +45,7 @@ public abstract class Enemy : Mob
             if (_behavior != value)
             {
                 _behavior = value;
-                UpdateBehavior();
+                ChangeBehavior();
             }
         }
     }
@@ -64,7 +66,7 @@ public abstract class Enemy : Mob
     {
         base.Start();
 
-        Behavior = Behavior.Idling;
+        Behavior = _initialBehavior;
 	}
 
     // Update is called once per frame
@@ -73,12 +75,26 @@ public abstract class Enemy : Mob
         base.Update();
     }
 
+    // TODO: Remove
+    bool canSeePlayer = false;
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+
+        if (CanSeePlayer() != canSeePlayer)
+        {
+            canSeePlayer = !canSeePlayer;
+            Debug.Log("CanSeePlayer() = " + canSeePlayer);
+        }
     }
 
-    private void UpdateBehavior()
+    
+    public virtual void Initialize(Behavior behavior)
+    {
+        Behavior = behavior;
+    }
+
+    private void ChangeBehavior()
     {
         // clean up the states modified by behavior handlers
         if (_cleanupFuncs != null)
@@ -126,12 +142,38 @@ public abstract class Enemy : Mob
     protected abstract void Die();
 
 
-    public override void AddDamage(int damage)
+    public bool CanSeePlayer()
     {
-        base.AddDamage(damage);
+        for (int i = 0; i < _detectors.Length; ++i)
+        {
+            Vector3 lineOfSight = _player._target.transform.position - _detectors[i].transform.position;
 
-        if (Health == 0)
-            Behavior = Behavior.Dying;
+            if (lineOfSight.magnitude > _detectorRanges[i])
+                continue; // player not in range of this detector
+
+            float angleToPlayer = Vector3.Angle(_detectors[i].transform.forward, lineOfSight);
+            if (angleToPlayer > _detectorAngleSpans[i] / 2)
+                continue; // player not in the angle span of this detector
+
+            RaycastHit hit;
+            int layerMask = ~(1 << 8);
+            bool didHit = Physics.Raycast(_detectors[i].transform.position, lineOfSight, out hit, _detectorRanges[i], layerMask);
+            if (!didHit || hit.collider.gameObject.GetComponentInParent<Player>() == null)
+                continue; // player behind an obstacle
+
+            _lastKnownPlayerPosition = _player._target.transform.position;
+            return true;
+        }
+
+        return false;
+    }
+
+
+    public override void Kill()
+    {
+        base.Kill();
+
+        Behavior = Behavior.Dying;
     }
 
 

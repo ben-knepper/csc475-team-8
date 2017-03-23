@@ -6,6 +6,7 @@ public class Player : Mob
 {
 
     public Camera _camera;
+    public GameObject _target;
 
 
     protected override void Awake()
@@ -14,6 +15,8 @@ public class Player : Mob
 
         if (_camera == null)
             _camera = gameObject.GetComponentInChildren<Camera>();
+
+        Health = _maxHealth;
     }
 
     // Use this for initialization
@@ -31,6 +34,12 @@ public class Player : Mob
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+    }
+
+
+    public override void Kill()
+    {
+        // TODO
     }
 
 
