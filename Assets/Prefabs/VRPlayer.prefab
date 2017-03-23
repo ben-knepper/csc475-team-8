@@ -2441,6 +2441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7681e262550473b858842743a985d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: {fileID: 1858972034434916}
   distance: 3
   smooth: 7
   maxReach: 3
@@ -2596,6 +2597,7 @@ MonoBehaviour:
   weaponRange: 50
   hitForce: 100
   gunEnd: {fileID: 4777621026265154}
+  reticule: {fileID: 0}
 --- !u!120 &120463234110601742
 LineRenderer:
   m_ObjectHideFlags: 1

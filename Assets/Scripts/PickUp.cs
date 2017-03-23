@@ -5,6 +5,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour {
 
 	GameObject mainCamera;
+    public GameObject hand;
 	bool carrying;
 	GameObject carriedObject;
 	public float distance;
@@ -34,14 +35,15 @@ public class PickUp : MonoBehaviour {
 
 	void carry(GameObject obj) {
 
-		obj.transform.position = Vector3.Lerp(obj.transform.position, mainCamera.transform.position + mainCamera.transform.forward * distance, Time.deltaTime * smooth);
-//		obj.transform.rotation = Quaternion.identity;
-			
-	}
+        //obj.transform.position = Vector3.Lerp(obj.transform.position, mainCamera.transform.position + mainCamera.transform.forward * distance, Time.deltaTime * smooth);
+        //		obj.transform.rotation = Quaternion.identity;
+        
+        obj.transform.position = Vector3.Lerp(obj.transform.position, hand.transform.position + hand.transform.forward * distance, Time.deltaTime * smooth);
+    }
 
 	void pickObjectUp() {
 
-		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER)) {
+		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[0].GetButton(SixenseButtons.TRIGGER)) {
 
 			int x = Screen.width / 2;
 			int y = Screen.height / 2;
@@ -55,6 +57,7 @@ public class PickUp : MonoBehaviour {
 					carrying = true;
 					carriedObject = p.gameObject;
 					p.gameObject.GetComponent<Rigidbody> ().isKinematic = false;
+                    distance = hit.distance;
 				}
 			}
 		}
@@ -62,7 +65,7 @@ public class PickUp : MonoBehaviour {
 
 	void checkDrop() {
 
-		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER)) {
+		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[0].GetButton(SixenseButtons.TRIGGER)) {
 			dropObject ();
 
 		}
