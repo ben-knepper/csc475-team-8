@@ -45,8 +45,11 @@ public abstract class Mob : MonoBehaviour
     }
 
 
-    public virtual void AddDamage(int damage)
+    public void AddDamage(int damage)
     {
+        if (Health <= 0)
+            return;
+
         Health -= damage;
         if (Health < 0)
             Health = 0;
@@ -54,6 +57,14 @@ public abstract class Mob : MonoBehaviour
             Health = _maxHealth;
 
         Debug.Log(this + " hit for " + damage + " damage (Health = " + Health + ")");
+
+        if (Health <= 0)
+            Kill();
+    }
+
+    public virtual void Kill()
+    {
+        Debug.Log(this + " killed");
     }
 
 

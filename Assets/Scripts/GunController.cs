@@ -8,6 +8,7 @@ public class GunController : MonoBehaviour {
     public float weaponRange = 50f;                                     // Distance in Unity units over which the player can fire
     public float hitForce = 100f;                                       // Amount of force which will be added to objects with a rigidbody shot by the player
     public Transform gunEnd;                                            // Holds a reference to the gun end object, marking the muzzle location of the gun
+    public GameObject reticule;
 
     //public float speed = 4f;
 
@@ -28,47 +29,52 @@ public class GunController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        
-        // Check if the player has pressed the fire button and if enough time has elapsed since they last fired
 
+        // Create a vector at the gun end
+        Vector3 rayOrigin = gunEnd.transform.position;
+        // Declare a raycast hit to store information about what our raycast has hit
+        RaycastHit hit;
+        bool didHit = Physics.Raycast(rayOrigin, gunEnd.transform.forward, out hit, weaponRange);
+
+        // Check if the player has pressed the fire button and if enough time has elapsed since they last fired
         if ((Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER))
             && Time.time > nextFire)
         {
-            // Update the time when our player can fire next
-            nextFire = Time.time + fireRate;
-            // Start our ShotEffect coroutine to turn our laser line on and off
-            StartCoroutine(ShotEffect());
-            // Create a vector at the gun end
-            Vector3 rayOrigin = gunEnd.transform.position;
-            // Declare a raycast hit to store information about what our raycast has hit
-            RaycastHit hit;
-            //float step = speed * Time.deltaTime;
-            //transform.position = Vector3.MoveTowards(transform.position, gunEnd.transform.forward, step);
-
-            // Set the start position for our visual effect for our laser to the position of gunEnd
-            laserLine.SetPosition(0, gunEnd.position);
-
-            // Check if our raycast has hit anything
-            if (Physics.Raycast(rayOrigin, gunEnd.transform.forward, out hit, weaponRange))
+            if (didHit)
             {
-                // Set the end position for our laser line 
-                laserLine.SetPosition(1, hit.point);
+                // Update the time when our player can fire next
+                nextFire = Time.time + fireRate;
+                // Start our ShotEffect coroutine to turn our laser line on and off
+                StartCoroutine(ShotEffect());
 
-                // Get a reference to a health script attached to the collider we hit
-                Enemy enemy = hit.collider.GetComponent<Enemy>();
+                //float step = speed * Time.deltaTime;
+                //transform.position = Vector3.MoveTowards(transform.position, gunEnd.transform.forward, step);
 
-                // If there was a health script attached
-                if (enemy != null)
+                // Set the start position for our visual effect for our laser to the position of gunEnd
+                laserLine.SetPosition(0, gunEnd.position);
+
+                // Check if our raycast has hit anything
+                if (didHit)
                 {
-                    // Call the damage function of that script, passing in our gunDamage variable
-                    enemy.AddDamage(gunDamage);
-                }
+                    // Set the end position for our laser line 
+                    laserLine.SetPosition(1, hit.point);
 
-                // Check if the object we hit has a rigidbody attached
-                if (hit.rigidbody != null)
-                {
-                    // Add force to the rigidbody we hit, in the direction from which it was hit
-                    hit.rigidbody.AddForce(-hit.normal * hitForce);
+                    // Get a reference to a health script attached to the collider we hit
+                    Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+
+                    // If there was a health script attached
+                    if (enemy != null)
+                    {
+                        // Call the damage function of that script, passing in our gunDamage variable
+                        enemy.AddDamage(gunDamage);
+                    }
+
+                    // Check if the object we hit has a rigidbody attached
+                    if (hit.rigidbody != null)
+                    {
+                        // Add force to the rigidbody we hit, in the direction from which it was hit
+                        hit.rigidbody.AddForce(-hit.normal * hitForce);
+                    }
                 }
             }
             else
@@ -76,6 +82,21 @@ public class GunController : MonoBehaviour {
                 // If we did not hit anything, set the end of the line to a position directly in front of the gun end at the distance of weaponRange
                 laserLine.SetPosition(1, rayOrigin + (gunEnd.transform.forward * weaponRange));
             }
+        }
+
+        // update reticule
+        if (didHit)
+        {
+            // put the reticule right above the hit surface (to avoid clipping)
+            reticule.transform.position = hit.point - gunEnd.forward * 0.01f;
+            reticule.transform.rotation = Quaternion.LookRotation(hit.normal);
+            reticule.transform.localScale = Vector3.one * hit.distance;
+        }
+        else
+        {
+            reticule.transform.position = gunEnd.forward * weaponRange;
+            reticule.transform.rotation = Quaternion.LookRotation(gunEnd.forward);
+            reticule.transform.localScale = Vector3.one * weaponRange;
         }
     }
     private IEnumerator ShotEffect()
