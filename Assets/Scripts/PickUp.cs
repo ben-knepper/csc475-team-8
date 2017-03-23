@@ -48,9 +48,10 @@ public class PickUp : MonoBehaviour {
 			int x = Screen.width / 2;
 			int y = Screen.height / 2;
 
-			Ray ray = mainCamera.GetComponent<Camera>().ScreenPointToRay (new Vector3 (x, y));
+            //Ray ray = mainCamera.GetComponent<Camera>().ScreenPointToRay (new Vector3 (x, y));
+            Vector3 direction = hand.transform.forward;
 			RaycastHit hit;
-			if (Physics.Raycast (ray, out hit, maxReach)) {
+			if (Physics.Raycast (hand.transform.position, hand.transform.forward, out hit, maxReach)) {
 
 				PickUpObject p = hit.collider.GetComponent<PickUpObject> ();
 				if (p != null) {
@@ -65,7 +66,7 @@ public class PickUp : MonoBehaviour {
 
 	void checkDrop() {
 
-		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[0].GetButton(SixenseButtons.TRIGGER)) {
+		if (Input.GetKeyDown (KeyCode.E) || Input.GetButtonDown("Fire2") || SixenseInput.Controllers[0].GetButtonUp(SixenseButtons.TRIGGER)) {
 			dropObject ();
 
 		}
