@@ -16,14 +16,25 @@ public class GunController : MonoBehaviour {
     private AudioSource gunAudio;                                       // Reference to the audio source which will play our shooting sound effect
     private LineRenderer laserLine;                                     // Reference to the LineRenderer component which will display our laserline
     private float nextFire;												// Float to store the time the player will be allowed to fire again, after firing
+    private Vector3 originalReticuleScale;
+    private Player player;
 
-    // Use this for initialization
-    void Start () {
+    private void Awake()
+    {
         // Get and store a reference to our LineRenderer component
         laserLine = GetComponent<LineRenderer>();
 
         // Get and store a reference to our AudioSource component
         gunAudio = GetComponent<AudioSource>();
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        originalReticuleScale = reticule.transform.localScale;
+    }
+
+    // Use this for initialization
+    void Start () {
+        
     }
 
     // Update is called once per frame
@@ -40,41 +51,33 @@ public class GunController : MonoBehaviour {
         if ((Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER))
             && Time.time > nextFire)
         {
+            // Update the time when our player can fire next
+            nextFire = Time.time + fireRate;
+
+            // Set the start position for our visual effect for our laser to the position of gunEnd
+            laserLine.SetPosition(0, gunEnd.position);
+
+            // Check if our raycast has hit anything
             if (didHit)
             {
-                // Update the time when our player can fire next
-                nextFire = Time.time + fireRate;
-                // Start our ShotEffect coroutine to turn our laser line on and off
-                StartCoroutine(ShotEffect());
+                // Set the end position for our laser line 
+                laserLine.SetPosition(1, hit.point);
 
-                //float step = speed * Time.deltaTime;
-                //transform.position = Vector3.MoveTowards(transform.position, gunEnd.transform.forward, step);
+                // Get a reference to a health script attached to the collider we hit
+                Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
 
-                // Set the start position for our visual effect for our laser to the position of gunEnd
-                laserLine.SetPosition(0, gunEnd.position);
-
-                // Check if our raycast has hit anything
-                if (didHit)
+                // If there was a health script attached
+                if (enemy != null)
                 {
-                    // Set the end position for our laser line 
-                    laserLine.SetPosition(1, hit.point);
+                    // Call the damage function of that script, passing in our gunDamage variable
+                    enemy.AddDamage(gunDamage);
+                }
 
-                    // Get a reference to a health script attached to the collider we hit
-                    Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
-
-                    // If there was a health script attached
-                    if (enemy != null)
-                    {
-                        // Call the damage function of that script, passing in our gunDamage variable
-                        enemy.AddDamage(gunDamage);
-                    }
-
-                    // Check if the object we hit has a rigidbody attached
-                    if (hit.rigidbody != null)
-                    {
-                        // Add force to the rigidbody we hit, in the direction from which it was hit
-                        hit.rigidbody.AddForce(-hit.normal * hitForce);
-                    }
+                // Check if the object we hit has a rigidbody attached
+                if (hit.rigidbody != null)
+                {
+                    // Add force to the rigidbody we hit, in the direction from which it was hit
+                    hit.rigidbody.AddForce(-hit.normal * hitForce);
                 }
             }
             else
@@ -82,6 +85,9 @@ public class GunController : MonoBehaviour {
                 // If we did not hit anything, set the end of the line to a position directly in front of the gun end at the distance of weaponRange
                 laserLine.SetPosition(1, rayOrigin + (gunEnd.transform.forward * weaponRange));
             }
+
+            // Start our ShotEffect coroutine to turn our laser line on and off
+            StartCoroutine(ShotEffect());
         }
 
         // update reticule
@@ -90,13 +96,14 @@ public class GunController : MonoBehaviour {
             // put the reticule right above the hit surface (to avoid clipping)
             reticule.transform.position = hit.point - gunEnd.forward * 0.01f;
             reticule.transform.rotation = Quaternion.LookRotation(hit.normal);
-            reticule.transform.localScale = Vector3.one * hit.distance;
+            //reticule.transform.localScale = originalReticuleScale * hit.distance;
+            reticule.transform.localScale = originalReticuleScale * Vector3.Distance(player._camera.transform.position, hit.point);
         }
         else
         {
-            reticule.transform.position = gunEnd.forward * weaponRange;
+            reticule.transform.position = gunEnd.position + gunEnd.forward * weaponRange;
             reticule.transform.rotation = Quaternion.LookRotation(gunEnd.forward);
-            reticule.transform.localScale = Vector3.one * weaponRange;
+            reticule.transform.localScale = originalReticuleScale * weaponRange;
         }
     }
     private IEnumerator ShotEffect()
