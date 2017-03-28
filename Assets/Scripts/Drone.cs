@@ -287,6 +287,8 @@ public class Drone : Enemy
         _gunEnd.SetActive(false);
 
         _isCleaningUp = false;
+
+        yield break;
     }
 
     protected override void Idle()

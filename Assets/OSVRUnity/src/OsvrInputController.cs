@@ -33,8 +33,6 @@ namespace OSVR
         {
             public bool lookWithController = true;
 
-            private 
-
             private OsvrCharacterMotor motor;
             private Transform viewerDirection; //for moving in the direction of the Viewer
 
