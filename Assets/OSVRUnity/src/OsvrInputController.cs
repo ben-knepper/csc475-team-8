@@ -31,6 +31,10 @@ namespace OSVR
         // Require a character controller to be attached to the same game object
         public class OsvrInputController : MonoBehaviour
         {
+            public bool lookWithController = true;
+
+            private 
+
             private OsvrCharacterMotor motor;
             private Transform viewerDirection; //for moving in the direction of the Viewer
 

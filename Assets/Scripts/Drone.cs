@@ -276,9 +276,17 @@ public class Drone : Enemy
     {
         _updateFuncs -= UpdateAttacking;
 
+        _cleanupFuncs -= CleanupAttacking;
+
+        StartCoroutine("UpdateCleanupAttacking");
+    }
+
+    private IEnumerator UpdateCleanupAttacking()
+    {
+
         _gunEnd.SetActive(false);
 
-        _cleanupFuncs -= CleanupAttacking;
+        _isCleaningUp = false;
     }
 
     protected override void Idle()
@@ -323,6 +331,8 @@ public class Drone : Enemy
         _spotlight.SetActive(false);
 
         _cleanupFuncs -= CleanupIdling;
+
+        _isCleaningUp = false;
     }
 
     protected override void Roam()
@@ -336,6 +346,8 @@ public class Drone : Enemy
     private void CleanupRoaming()
     {
         StopCoroutine("CheckForStartAttacking");
+
+        _isCleaningUp = false;
     }
 
     protected override void Seek()
@@ -391,6 +403,8 @@ public class Drone : Enemy
 
         _updateFuncs -= CheckForSeekingToIdling;
         _updateFuncs -= _rotateFunc;
+
+        _isCleaningUp = false;
     }
 
     protected override void Die()

@@ -31,6 +31,7 @@ public abstract class Enemy : Mob
 
     protected static Player _player;
     protected Vector3 _lastKnownPlayerPosition;
+    protected bool _isCleaningUp = false;
 
 
     public GameObject Target { get; protected set; }
@@ -97,9 +98,24 @@ public abstract class Enemy : Mob
     private void ChangeBehavior()
     {
         // clean up the states modified by behavior handlers
+        _isCleaningUp = true; // cleanup funcs should set this to false when they're done
         if (_cleanupFuncs != null)
             _cleanupFuncs.Invoke();
 
+        CheckForStartBehavior();
+    }
+
+    private IEnumerator CheckForStartBehavior()
+    {
+        yield return new WaitUntil( () => !_isCleaningUp );
+
+        StartBehavior();
+
+        yield break;
+    }
+
+    private void StartBehavior()
+    {
         switch (Behavior)
         {
             case Behavior.Inactive:
