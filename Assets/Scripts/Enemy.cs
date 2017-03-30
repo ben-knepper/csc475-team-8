@@ -82,7 +82,7 @@ public abstract class Enemy : Mob
     {
         base.FixedUpdate();
 
-        if (CanSeePlayer() != canSeePlayer)
+        if (Debug.developerConsoleVisible && CanSeePlayer() != canSeePlayer)
         {
             canSeePlayer = !canSeePlayer;
             Debug.Log("CanSeePlayer() = " + canSeePlayer);
@@ -98,20 +98,28 @@ public abstract class Enemy : Mob
     private void ChangeBehavior()
     {
         // clean up the states modified by behavior handlers
-        _isCleaningUp = true; // cleanup funcs should set this to false when they're done
         if (_cleanupFuncs != null)
+        {
             _cleanupFuncs.Invoke();
+        }
 
-        CheckForStartBehavior();
+        if (_isCleaningUp)
+            StartCoroutine("CheckForStartBehavior");
+        else
+            StartBehavior();
     }
 
     private IEnumerator CheckForStartBehavior()
     {
-        yield return new WaitUntil( () => !_isCleaningUp );
+        yield return new WaitUntil(IsNotCleaningUp);// () => !_isCleaningUp );
 
         StartBehavior();
 
         yield break;
+    }
+    bool IsNotCleaningUp()
+    {
+        return !_isCleaningUp;
     }
 
     private void StartBehavior()

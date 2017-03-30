@@ -39,6 +39,8 @@ public class Player : Mob
 
     public override void Kill()
     {
+        base.Kill();
+
         // TODO
     }
 

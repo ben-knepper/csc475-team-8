@@ -229,46 +229,55 @@ public class Drone : Enemy
                 _attackingCurrentTime = 0f;
             }
         }
-        else if (!CanSeePlayer())
-        {
-            _attackingWaitTimeBeforeSeeking += Time.deltaTime;
-            if (_attackingWaitTimeBeforeSeeking > _attackingTimeToWaitUntilSeek)
-            {
-                Behavior = Behavior.Seeking;
-            }
-
-            if (_attackingCurrentTime >= _secsBetweenShots)
-            {
-                _chargingShotAnimator.speed = 0f;
-            }
-        }
         else
         {
+            bool canSeePlayer = CanSeePlayer();
+
             // rotate toward the player
-            Quaternion rotationToPlayer = Quaternion.LookRotation(_player._target.transform.position - transform.position, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, rotationToPlayer, _attackingRotationSpeed * Time.deltaTime);
+            Quaternion rotationToPlayer = Quaternion.LookRotation(
+                _lastKnownPlayerPosition - transform.position, Vector3.up);
+            transform.rotation = Quaternion.RotateTowards(
+                transform.rotation, rotationToPlayer, _attackingRotationSpeed * Time.deltaTime);
 
             float angleAwayFromPlayer = Quaternion.Angle(transform.rotation, rotationToPlayer);
 
-            if (_attackingCurrentTime >= _secsBetweenShots)
+            if (!canSeePlayer)
             {
                 if (angleAwayFromPlayer < _shotAlignedMarginOfError)
-                {
-                    _isShooting = true;
-                    //Shoot();
-                    _attackingCurrentTime = 0f;
+                    _attackingWaitTimeBeforeSeeking += Time.deltaTime;
 
-                    _chargingShotAnimator.speed = 0f;
-                    _isPausedAfterShot = true;
-                }
-                else
+                if (_attackingCurrentTime >= _secsBetweenShots)
                 {
-                    //_chargingShotAnimator.Play("Drone Gun Charge", 0, 0.9f);
                     _chargingShotAnimator.speed = 0f;
+                }
+
+                if (_attackingWaitTimeBeforeSeeking > _attackingTimeToWaitUntilSeek)
+                {
+                    Behavior = Behavior.Seeking;
                 }
             }
+            else
+            {
+                if (_attackingCurrentTime >= _secsBetweenShots)
+                {
+                    if (angleAwayFromPlayer < _shotAlignedMarginOfError)
+                    {
+                        _isShooting = true;
+                        //Shoot();
+                        _attackingCurrentTime = 0f;
 
-            _attackingWaitTimeBeforeSeeking = 0f;
+                        _chargingShotAnimator.speed = 0f;
+                        _isPausedAfterShot = true;
+                    }
+                    else
+                    {
+                        //_chargingShotAnimator.Play("Drone Gun Charge", 0, 0.9f);
+                        _chargingShotAnimator.speed = 0f;
+                    }
+                }
+
+                _attackingWaitTimeBeforeSeeking = 0f;
+            }
         }
     }
 
@@ -277,6 +286,8 @@ public class Drone : Enemy
         _updateFuncs -= UpdateAttacking;
 
         _cleanupFuncs -= CleanupAttacking;
+
+        _isCleaningUp = true;
 
         StartCoroutine("UpdateCleanupAttacking");
     }
@@ -333,8 +344,6 @@ public class Drone : Enemy
         _spotlight.SetActive(false);
 
         _cleanupFuncs -= CleanupIdling;
-
-        _isCleaningUp = false;
     }
 
     protected override void Roam()
@@ -349,7 +358,7 @@ public class Drone : Enemy
     {
         StopCoroutine("CheckForStartAttacking");
 
-        _isCleaningUp = false;
+        _isCleaningUp = true;
     }
 
     protected override void Seek()
@@ -406,7 +415,7 @@ public class Drone : Enemy
         _updateFuncs -= CheckForSeekingToIdling;
         _updateFuncs -= _rotateFunc;
 
-        _isCleaningUp = false;
+        //_isCleaningUp = true;
     }
 
     protected override void Die()
