@@ -62,13 +62,9 @@ namespace OSVR
 
             #endregion
 
-            public bool _showCursor = true;
-
             void Awake()
             {
                 Init();
-
-                Cursor.visible = _showCursor;
             }
 
             void Init()

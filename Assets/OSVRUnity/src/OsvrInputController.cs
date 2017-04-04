@@ -31,8 +31,6 @@ namespace OSVR
         // Require a character controller to be attached to the same game object
         public class OsvrInputController : MonoBehaviour
         {
-            public bool lookWithController = true;
-
             private OsvrCharacterMotor motor;
             private Transform viewerDirection; //for moving in the direction of the Viewer
 
@@ -55,11 +53,10 @@ namespace OSVR
                 }
 
                 // Get the input vector from keyboard or analog stick
-                Vector3 directionVector = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-                Vector3 hydraDirectionVector = new Vector3(
-                    SixenseInput.Controllers[0].JoystickX, 0,
-                    SixenseInput.Controllers[0].JoystickY);
-                directionVector += hydraDirectionVector;
+                Vector3 directionVector = new Vector3(
+                    Input.GetAxis("Horizontal") + SixenseInput.Controllers[0].JoystickX,
+                    0,
+                    Input.GetAxis("Vertical") + SixenseInput.Controllers[0].JoystickY);
                 if (directionVector != Vector3.zero)
                 {
                     // Get the length of the directon vector and then normalize it
@@ -84,11 +81,11 @@ namespace OSVR
                 if (viewerDirection)
                 {
                     // Apply the viewer direction to the CharacterMotor
-                    Vector3 theForwardDirection = viewerDirection.TransformDirection(Vector3.forward);
+                    Vector3 theForwardDirection = transform.TransformDirection(Vector3.forward); //viewerDirection.TransformDirection(Vector3.forward);
                     theForwardDirection.y = 0;
                     theForwardDirection.Normalize();
                     motor.inputMoveDirection = viewerDirection.rotation * directionVector;
-                    motor.inputJump = Input.GetButton("Jump") || SixenseInput.Controllers[1].GetButton(SixenseButtons.ONE);
+                    motor.inputJump = Input.GetButton("Jump");
                 }
 
             }
