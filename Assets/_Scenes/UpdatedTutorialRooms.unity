@@ -30601,6 +30601,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DoorAnimations: {fileID: 0}
+--- !u!65 &1471304106
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1471304103}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 8.255656, y: 5.330587, z: 7}
+  m_Center: {x: 0, y: 0.07880187, z: -0.00000014901163}
 --- !u!1 &1472705497
 GameObject:
   m_ObjectHideFlags: 0
