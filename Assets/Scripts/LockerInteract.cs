@@ -20,7 +20,7 @@ public class LockerInteract : MonoBehaviour {
 			RaycastHit hit;
 			if (Physics.Raycast (ray, out hit, interactDistance)) {
 				if (hit.collider.CompareTag ("Locker")) {
-					hit.collider.transform.GetComponent<LockerScript> ().changeDoorState ();
+					hit.collider.transform.GetComponent<LockerScript> ().changeLockerState ();
 
 				}
 

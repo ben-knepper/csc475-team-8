@@ -8,18 +8,18 @@ public class LockerScript : MonoBehaviour {
 	public float doorOpenAngle = 90f;
 	public float doorCloseAngle = 0f;
 	public float smooth = 2;
-	private AudioSource doorAudio;
+	private AudioSource lockerAudio;
 
 	// Use this for initialization
 	void Start () {
 
-		doorAudio = GetComponent<AudioSource> ();
+		lockerAudio = GetComponent<AudioSource> ();
 		
 	}
 
-	public void changeDoorState() {
+	public void changeLockerState() {
 		open = !open;
-		doorAudio.Play ();
+		lockerAudio.Play ();
 
 	}
 	

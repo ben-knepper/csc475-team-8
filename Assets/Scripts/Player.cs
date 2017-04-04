@@ -42,6 +42,8 @@ public class Player : Mob
         base.Kill();
 
         // TODO
+		//yield return new WaitForSecondsRealtime(3);
+		//Application.LoadLevel (Application.loadedLevel);
     }
 
 
