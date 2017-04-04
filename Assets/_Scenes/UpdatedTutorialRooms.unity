@@ -1854,24 +1854,6 @@ Transform:
   m_Father: {fileID: 719854872}
   m_RootOrder: 45
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &106369426 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1182646418777628, guid: 66db205f4eeeb2f4b88f4cdec0777570,
-    type: 2}
-  m_PrefabInternal: {fileID: 1932979258}
---- !u!114 &106369428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 106369426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15db670fa9334634fb4ac475681e29e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  setRoomRotationKey: 114
-  clearRoomRotationKey: 117
 --- !u!43 &107005848
 Mesh:
   m_ObjectHideFlags: 0
@@ -6708,23 +6690,6 @@ Transform:
   m_Father: {fileID: 719854872}
   m_RootOrder: 108
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &374459247 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1056943978188630, guid: 66db205f4eeeb2f4b88f4cdec0777570,
-    type: 2}
-  m_PrefabInternal: {fileID: 1932979258}
---- !u!114 &374459254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 374459247}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2ac84f22109d4f059781adc74b811d1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactDistance: 5
 --- !u!1 &375610720 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 4b10a1178d1698c4e8e6d58ecd9379ef, type: 3}
@@ -38518,8 +38483,7 @@ Prefab:
       propertyPath: reticule
       value: 
       objectReference: {fileID: 507228388}
-    m_RemovedComponents:
-    - {fileID: 114189924229282070, guid: 66db205f4eeeb2f4b88f4cdec0777570, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 66db205f4eeeb2f4b88f4cdec0777570, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1935299552 stripped

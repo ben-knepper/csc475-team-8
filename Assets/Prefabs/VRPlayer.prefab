@@ -58,6 +58,7 @@ GameObject:
   - component: {fileID: 114672573094136230}
   - component: {fileID: 114206453185796812}
   - component: {fileID: 114776919724586100}
+  - component: {fileID: 114450323361451236}
   m_Layer: 10
   m_Name: VRFirstPersonController
   m_TagString: Player
@@ -256,7 +257,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4387287866825998}
-  - component: {fileID: 114189924229282070}
+  - component: {fileID: 114360411066218392}
   m_Layer: 10
   m_Name: Recenter
   m_TagString: Untagged
@@ -872,6 +873,7 @@ GameObject:
   - component: {fileID: 4873430213945428}
   - component: {fileID: 20445377694665830}
   - component: {fileID: 114122811003660998}
+  - component: {fileID: 81335472116725518}
   m_Layer: 10
   m_Name: VRViewer0
   m_TagString: MainCamera
@@ -934,7 +936,6 @@ GameObject:
   - component: {fileID: 4036799501290526}
   - component: {fileID: 20039946925996206}
   - component: {fileID: 114960576824881276}
-  - component: {fileID: 81415291071078182}
   m_Layer: 10
   m_Name: VRSurface0
   m_TagString: MainCamera
@@ -1259,7 +1260,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150593093628662}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2331371, y: 1.2331372, z: 1.2331372}
   m_Children:
@@ -2218,12 +2219,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1587856747438344}
   m_Mesh: {fileID: 10205, guid: 0000000000000000e000000000000000, type: 0}
---- !u!81 &81415291071078182
+--- !u!81 &81335472116725518
 AudioListener:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1850695445090642}
+  m_GameObject: {fileID: 1728035453506382}
   m_Enabled: 1
 --- !u!82 &82638473499530014
 AudioSource:
@@ -2400,17 +2401,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hand: 1
---- !u!114 &114189924229282070
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1182646418777628}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114206453185796812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2435,6 +2425,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_hand: 2
+--- !u!114 &114360411066218392
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1182646418777628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15db670fa9334634fb4ac475681e29e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setRoomRotationKey: 114
+  clearRoomRotationKey: 117
+--- !u!114 &114450323361451236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1056943978188630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2ac84f22109d4f059781adc74b811d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactDistance: 5
 --- !u!114 &114528592451932638
 MonoBehaviour:
   m_ObjectHideFlags: 1
