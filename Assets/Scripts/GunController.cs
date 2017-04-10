@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GunController : MonoBehaviour {
@@ -49,6 +50,7 @@ public class GunController : MonoBehaviour {
         // Declare a raycast hit to store information about what our raycast has hit
         RaycastHit hit;
         bool didHit = Physics.Raycast(rayOrigin, gunEnd.transform.forward, out hit, weaponRange);
+        Enemy hitEnemy = null;
 
         // Check if the player has pressed the fire button and if enough time has elapsed since they last fired
         if ((Input.GetButtonDown("Fire1") || SixenseInput.Controllers[1].GetButton(SixenseButtons.TRIGGER))
@@ -67,13 +69,14 @@ public class GunController : MonoBehaviour {
                 laserLine.SetPosition(1, hit.point);
 
                 // Get a reference to a health script attached to the collider we hit
-                Enemy enemy = hit.collider.GetComponentInParent<Enemy>();
+                hitEnemy = hit.collider.GetComponentInParent<Enemy>();
 
                 // If there was a health script attached
-                if (enemy != null)
+                if (hitEnemy != null)
                 {
                     // Call the damage function of that script, passing in our gunDamage variable
-                    enemy.AddDamage(gunDamage);
+                    hitEnemy.AddDamage(gunDamage);
+                    hitEnemy.Alert();
                 }
 
                 // Check if the object we hit has a rigidbody attached
@@ -90,9 +93,9 @@ public class GunController : MonoBehaviour {
             }
 
             // Start our ShotEffect coroutine to turn our laser line on and off
-            StartCoroutine(ShotEffect());
+            StartCoroutine("ShotEffect");
 
-            foreach (Enemy enemy in enemyMaster.enemies)
+            foreach (Enemy enemy in enemyMaster.enemies.Where((Enemy e) => e != hitEnemy))
             {
                 enemy.AlertIfInHearingRange();
             }

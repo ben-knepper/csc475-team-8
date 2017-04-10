@@ -155,7 +155,7 @@ public class Drone : Enemy
         transform.position = new Vector3(transform.position.x, newHeight, transform.position.z);
     }
 
-    private void StartRotation(float rotationRange, float rotationSpeed)
+    private void StartRandomRotation(float rotationRange, float rotationSpeed)
     {
         Quaternion startQuaternion = transform.rotation;
         float rotationBounds = rotationRange / 2;
@@ -169,13 +169,13 @@ public class Drone : Enemy
             transform.rotation.eulerAngles.x,
             newAngle,
             transform.rotation.eulerAngles.z);
-        float angleDiff = Mathf.Abs(newAngle - _lastRotationAngle);
-        if (angleDiff >= 180)
-            angleDiff = 360 - angleDiff;
+        StartRotation(startQuaternion, endQuaternion, rotationSpeed);
+    }
+
+    private void StartRotation(Quaternion startQuaternion, Quaternion endQuaternion, float rotationSpeed)
+    {
         _rotationCurrentTime = 0;
-        _rotationEndTime = angleDiff / rotationSpeed;
-        _lastRotationAngle = newAngle;
-        // add rotation updater to FixedUpdate (see Mob.FixedUpdate())
+        _rotationEndTime = Mathf.Sqrt(Quaternion.Angle(startQuaternion, endQuaternion)) / rotationSpeed; // sqrt makes the speed more consistent for short and long rotations
         _rotateFunc = () =>
         {
             // based on https://chicounity3d.wordpress.com/2014/05/23/how-to-lerp-like-a-pro/
@@ -190,6 +190,11 @@ public class Drone : Enemy
             transform.rotation = Quaternion.Lerp(startQuaternion, endQuaternion, smoothedT);
         };
         _updateFuncs += _rotateFunc;
+    }
+
+    private bool WaitForRotation()
+    {
+        return _rotationCurrentTime >= _rotationEndTime;
     }
 
     private void Shoot()
@@ -324,10 +329,10 @@ public class Drone : Enemy
             float pauseTime = UnityEngine.Random.Range(_idlingMinRotateStopTime, _idlingMaxRotateStopTime);
             yield return new WaitForSecondsRealtime(pauseTime);
 
-            StartRotation(_idlingRotationRange, _idleRotationSpeed);
+            StartRandomRotation(_idlingRotationRange, _idleRotationSpeed);
 
             // wait until the rotation lerp is complete
-            yield return new WaitUntil(() => _rotationCurrentTime >= _rotationEndTime);
+            yield return new WaitUntil(WaitForRotation);
 
             _updateFuncs -= _rotateFunc;
         }
@@ -363,7 +368,7 @@ public class Drone : Enemy
 
     protected override void Seek()
     {
-        Debug.Log(this + " seeking plyaer at " + _lastKnownPlayerPosition);
+        Debug.Log(this + " seeking player at " + _lastKnownPlayerPosition);
 
         Quaternion angleToLastPlayerPosition = Quaternion.LookRotation(_lastKnownPlayerPosition, Vector3.up);
         _rotationCenter = angleToLastPlayerPosition.eulerAngles.y;
@@ -378,6 +383,14 @@ public class Drone : Enemy
 
     private IEnumerator UpdateSeeking()
     {
+        // first rotate to the last known player position
+        StartRotation(
+            transform.rotation,
+            Quaternion.LookRotation(_player.transform.position - transform.position, Vector2.up),
+            _seekingRotationSpeed);
+        yield return new WaitUntil(WaitForRotation);
+        _updateFuncs -= _rotateFunc;
+
         while (true)
         {
             if (_isMobile)
@@ -390,10 +403,10 @@ public class Drone : Enemy
                 float pauseTime = UnityEngine.Random.Range(_seekingMinRotateStopTime, _seekingMaxRotateStopTime);
                 yield return new WaitForSecondsRealtime(pauseTime);
 
-                StartRotation(_seekingRotationRange, _seekingRotationSpeed);
+                StartRandomRotation(_seekingRotationRange, _seekingRotationSpeed);
 
                 // wait until the rotation lerp is complete
-                yield return new WaitUntil(() => _rotationCurrentTime >= _rotationEndTime);
+                yield return new WaitUntil(WaitForRotation);
 
                 _updateFuncs -= _rotateFunc;
             }
@@ -450,6 +463,7 @@ public class Drone : Enemy
 
         // finally despawn the drone
         Debug.Log(this + " being destroyed");
+        _enemyMaster.enemies.Remove(this);
         Destroy(gameObject);
 
         yield break;
@@ -464,20 +478,14 @@ public class Drone : Enemy
         {
             Behavior = Behavior.Seeking;
         }
-    }
-
-    public override bool AlertIfInHearingRange()
-    {
-        bool isInHearingRange = base.AlertIfInHearingRange();
-
-        if (isInHearingRange)
+        else if (Behavior == Behavior.Seeking)
         {
-            Behavior = Behavior.Seeking;
-            return true;
-        }
-        else
-        {
-            return false;
+            StopCoroutine("UpdateSeeking");
+            _updateFuncs -= _rotateFunc;
+
+            StartCoroutine("UpdateSeeking");
+
+            _seekingCurrentTime = 0f;
         }
     }
 

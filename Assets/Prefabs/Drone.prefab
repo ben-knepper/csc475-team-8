@@ -321,7 +321,7 @@ Transform:
   m_GameObject: {fileID: 1071343994507838}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
   m_LocalPosition: {x: 0, y: 0.1, z: 0.1}
-  m_LocalScale: {x: 2, y: 2, z: 5}
+  m_LocalScale: {x: 3, y: 3, z: 7.5}
   m_Children: []
   m_Father: {fileID: 4295719681840526}
   m_RootOrder: 2
@@ -714,8 +714,9 @@ MonoBehaviour:
   - 40
   - 360
   _detectorRanges:
-  - 20
+  - 30
   - 3
+  _hearingRange: 30
   _gunEnd: {fileID: 1185740175499552}
   _spotlight: {fileID: 1071343994507838}
   _isMobile: 0
@@ -725,19 +726,19 @@ MonoBehaviour:
   _idlingRotationRange: 90
   _idlingMinRotateStopTime: 1
   _idlingMaxRotateStopTime: 2
-  _idleRotationSpeed: 15
+  _idleRotationSpeed: 5
   _bullet: {fileID: 1302360820822926, guid: dd9d899ad66f8654f9db6775edaa1039, type: 2}
   _chargingShotAnimator: {fileID: 0}
   _secsBetweenShots: 2
-  _attackingRotationSpeed: 50
+  _attackingRotationSpeed: 80
   _shotAlignedMarginOfError: 1
   _pauseAfterShotTime: 0.5
-  _attackingTimeToWaitUntilSeek: 3
+  _attackingTimeToWaitUntilSeek: 1.5
   _seekingTimeBeforeIdle: 15
   _seekingRotationRange: 150
-  _seekingMinRotateStopTime: 0.2
+  _seekingMinRotateStopTime: 0.3
   _seekingMaxRotateStopTime: 0.5
-  _seekingRotationSpeed: 30
+  _seekingRotationSpeed: 8
   _minDespawnTime: 30
   _minDespawnDistance: 10
   _minDespawnPlayerAngle: 100

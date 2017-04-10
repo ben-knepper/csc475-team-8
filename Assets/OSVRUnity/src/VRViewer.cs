@@ -62,6 +62,8 @@ namespace OSVR
 
             #endregion
 
+            public bool showCursor = true;
+
             void Awake()
             {
                 Init();
@@ -81,6 +83,8 @@ namespace OSVR
 					
 					_endOfFrameCoroutine = EndOfFrame();
 				}
+
+                Cursor.visible = showCursor;
             }
 
             void OnEnable()

@@ -213,7 +213,7 @@ public abstract class Enemy : Mob
     {
         if (Vector3.Distance(transform.position, _player.transform.position) <= _hearingRange)
         {
-            _lastKnownPlayerPosition = _player._target.transform.position;
+            Alert();
             return true;
         }
         else
