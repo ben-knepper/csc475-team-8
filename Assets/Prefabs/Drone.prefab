@@ -729,7 +729,7 @@ MonoBehaviour:
   _idleRotationSpeed: 5
   _bullet: {fileID: 1302360820822926, guid: dd9d899ad66f8654f9db6775edaa1039, type: 2}
   _chargingShotAnimator: {fileID: 0}
-  _secsBetweenShots: 2
+  _secsBetweenShots: 1
   _attackingRotationSpeed: 80
   _shotAlignedMarginOfError: 1
   _pauseAfterShotTime: 0.5
@@ -738,7 +738,7 @@ MonoBehaviour:
   _seekingRotationRange: 150
   _seekingMinRotateStopTime: 0.3
   _seekingMaxRotateStopTime: 0.8
-  _seekingRotationSpeed: 9
+  _seekingRotationSpeed: 10
   _minDespawnTime: 30
   _minDespawnDistance: 10
   _minDespawnPlayerAngle: 100

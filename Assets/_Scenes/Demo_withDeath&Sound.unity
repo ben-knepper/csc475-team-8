@@ -10654,6 +10654,7 @@ GameObject:
   - component: {fileID: 509494105}
   - component: {fileID: 509494104}
   - component: {fileID: 509494103}
+  - component: {fileID: 509494106}
   m_Layer: 0
   m_Name: 'Door Border '
   m_TagString: Untagged
@@ -10712,6 +10713,20 @@ Transform:
   m_Father: {fileID: 719854872}
   m_RootOrder: 69
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &509494106
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 509494102}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 1312335123}
 --- !u!43 &511227888
 Mesh:
   m_ObjectHideFlags: 0
@@ -20092,7 +20107,7 @@ Prefab:
     - target: {fileID: 114061701874843016, guid: c64824d640341164ca0d3be585708105,
         type: 2}
       propertyPath: _initialBehavior
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4295719681840526, guid: c64824d640341164ca0d3be585708105, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -23324,6 +23339,7 @@ GameObject:
   - component: {fileID: 1129595012}
   - component: {fileID: 1129595011}
   - component: {fileID: 1129595010}
+  - component: {fileID: 1129595013}
   m_Layer: 0
   m_Name: Door Border
   m_TagString: Untagged
@@ -23382,6 +23398,20 @@ Transform:
   m_Father: {fileID: 719854872}
   m_RootOrder: 68
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!64 &1129595013
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1129595009}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 1
+  m_InflateMesh: 0
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 523331060}
 --- !u!1 &1130316838
 GameObject:
   m_ObjectHideFlags: 0
