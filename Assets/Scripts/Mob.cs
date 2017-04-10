@@ -14,7 +14,7 @@ public abstract class Mob : MonoBehaviour
 
     [Header("Mob Base")]
     [Space(5)]
-    public int _maxHealth = 2;
+    public int _maxHealth = 3;
     public float _moveSpeed = 5f;
 
 
@@ -51,6 +51,11 @@ public abstract class Mob : MonoBehaviour
             return;
 
         Health -= damage;
+
+		if (Health == 2)
+			Shot1 ();
+		if (Health == 1)
+			Shot2 ();
         if (Health < 0)
             Health = 0;
         else if (Health > _maxHealth)
@@ -61,6 +66,16 @@ public abstract class Mob : MonoBehaviour
         if (Health <= 0)
             Kill();
     }
+
+	public virtual void Shot1()
+	{
+
+	}
+
+	public virtual void Shot2()
+	{
+
+	}
 
     public virtual void Kill()
     {

@@ -7,6 +7,7 @@ TagManager:
   - Door
   - Locker
   - EnemyMaster
+  - Fade
   layers:
   - Default
   - TransparentFX
