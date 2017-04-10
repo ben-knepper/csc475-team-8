@@ -28,7 +28,9 @@ public abstract class Enemy : Mob
     public GameObject[] _detectors;
     public float[] _detectorAngleSpans;
     public float[] _detectorRanges;
+    public float _hearingRange = 30f;
 
+    protected static EnemyMaster _enemyMaster;
     protected static Player _player;
     protected Vector3 _lastKnownPlayerPosition;
     protected bool _isCleaningUp = false;
@@ -56,6 +58,8 @@ public abstract class Enemy : Mob
     {
         base.Awake();
 
+        if (_enemyMaster == null)
+            _enemyMaster = GameObject.FindGameObjectWithTag("EnemyMaster").GetComponent<EnemyMaster>();
         if (_player == null)
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
 
@@ -198,6 +202,24 @@ public abstract class Enemy : Mob
         base.Kill();
 
         Behavior = Behavior.Dying;
+    }
+
+    public virtual void Alert()
+    {
+        _lastKnownPlayerPosition = _player._target.transform.position;
+    }
+
+    public virtual bool AlertIfInHearingRange()
+    {
+        if (Vector3.Distance(transform.position, _player.transform.position) <= _hearingRange)
+        {
+            _lastKnownPlayerPosition = _player._target.transform.position;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
 

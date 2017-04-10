@@ -456,6 +456,32 @@ public class Drone : Enemy
     }
 
 
+    public override void Alert()
+    {
+        base.Alert();
+
+        if (Behavior == Behavior.Roaming || Behavior == Behavior.Idling)
+        {
+            Behavior = Behavior.Seeking;
+        }
+    }
+
+    public override bool AlertIfInHearingRange()
+    {
+        bool isInHearingRange = base.AlertIfInHearingRange();
+
+        if (isInHearingRange)
+        {
+            Behavior = Behavior.Seeking;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+
     public override string ToString()
     {
         return "Drone " + GetInstanceID();

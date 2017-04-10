@@ -9,12 +9,16 @@ public class Player : Mob
     public GameObject _target;
 
 
+    private EnemyMaster _enemyMaster;
+
+
     protected override void Awake()
     {
         base.Awake();
 
         if (_camera == null)
             _camera = gameObject.GetComponentInChildren<Camera>();
+        _enemyMaster = GameObject.FindGameObjectWithTag("EnemyMaster").GetComponent<EnemyMaster>();
 
         Health = _maxHealth;
     }

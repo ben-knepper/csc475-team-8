@@ -18,6 +18,8 @@ public class GunController : MonoBehaviour {
     private float nextFire;												// Float to store the time the player will be allowed to fire again, after firing
     private Vector3 originalReticuleScale;
     private Player player;
+    private EnemyMaster enemyMaster;
+
 
     private void Awake()
     {
@@ -28,6 +30,7 @@ public class GunController : MonoBehaviour {
         gunAudio = GetComponent<AudioSource>();
 
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        enemyMaster = GameObject.FindGameObjectWithTag("EnemyMaster").GetComponent<EnemyMaster>();
 
         originalReticuleScale = reticule.transform.localScale;
     }
@@ -88,6 +91,11 @@ public class GunController : MonoBehaviour {
 
             // Start our ShotEffect coroutine to turn our laser line on and off
             StartCoroutine(ShotEffect());
+
+            foreach (Enemy enemy in enemyMaster.enemies)
+            {
+                enemy.AlertIfInHearingRange();
+            }
         }
 
         // update reticule
