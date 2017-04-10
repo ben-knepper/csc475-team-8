@@ -14,10 +14,8 @@ public class Drone : Enemy
     public bool _isMobile;
 
     private UpdateFunc _rotateFunc;
-    private float _rotationCenter;
     private float _rotationEndTime;
     private float _rotationCurrentTime;
-    private float _lastRotationAngle;
 
 
     // bobbing fields
@@ -155,12 +153,12 @@ public class Drone : Enemy
         transform.position = new Vector3(transform.position.x, newHeight, transform.position.z);
     }
 
-    private void StartRandomRotation(float rotationRange, float rotationSpeed)
+    private void StartRandomRotation(float rotationCenter, float rotationRange, float rotationSpeed)
     {
         Quaternion startQuaternion = transform.rotation;
         float rotationBounds = rotationRange / 2;
         float relativeNewAngle = UnityEngine.Random.Range(-rotationBounds, rotationBounds);
-        float newAngle = _rotationCenter + relativeNewAngle;
+        float newAngle = rotationCenter + relativeNewAngle;
         if (newAngle >= 360)
             newAngle -= 360;
         else if (newAngle < 0)
@@ -311,8 +309,6 @@ public class Drone : Enemy
     {
         Debug.Log(this + " idling");
 
-        _rotationCenter = transform.rotation.eulerAngles.y;
-        _lastRotationAngle = _rotationCenter;
         _spotlight.SetActive(true);
 
         _updateFuncs += _bobbingFunc;
@@ -323,13 +319,15 @@ public class Drone : Enemy
     
     private IEnumerator UpdateIdle()
     {
+        float rotationCenter = transform.rotation.eulerAngles.y;
+
         while (true)
         {
             // pause rotation
             float pauseTime = UnityEngine.Random.Range(_idlingMinRotateStopTime, _idlingMaxRotateStopTime);
             yield return new WaitForSecondsRealtime(pauseTime);
 
-            StartRandomRotation(_idlingRotationRange, _idleRotationSpeed);
+            StartRandomRotation(rotationCenter, _idlingRotationRange, _idleRotationSpeed);
 
             // wait until the rotation lerp is complete
             yield return new WaitUntil(WaitForRotation);
@@ -371,8 +369,6 @@ public class Drone : Enemy
         Debug.Log(this + " seeking player at " + _lastKnownPlayerPosition);
 
         Quaternion angleToLastPlayerPosition = Quaternion.LookRotation(_lastKnownPlayerPosition, Vector3.up);
-        _rotationCenter = angleToLastPlayerPosition.eulerAngles.y;
-        _lastRotationAngle = _rotationCenter;
         _seekingCurrentTime = 0f;
 
         _updateFuncs += CheckForSeekingToIdling;
@@ -386,10 +382,12 @@ public class Drone : Enemy
         // first rotate to the last known player position
         StartRotation(
             transform.rotation,
-            Quaternion.LookRotation(_player.transform.position - transform.position, Vector2.up),
+            Quaternion.LookRotation(_lastKnownPlayerPosition - transform.position, Vector2.up),
             _seekingRotationSpeed);
         yield return new WaitUntil(WaitForRotation);
         _updateFuncs -= _rotateFunc;
+
+        float rotationCenter = transform.rotation.eulerAngles.y;
 
         while (true)
         {
@@ -403,7 +401,7 @@ public class Drone : Enemy
                 float pauseTime = UnityEngine.Random.Range(_seekingMinRotateStopTime, _seekingMaxRotateStopTime);
                 yield return new WaitForSecondsRealtime(pauseTime);
 
-                StartRandomRotation(_seekingRotationRange, _seekingRotationSpeed);
+                StartRandomRotation(rotationCenter, _seekingRotationRange, _seekingRotationSpeed);
 
                 // wait until the rotation lerp is complete
                 yield return new WaitUntil(WaitForRotation);

@@ -715,7 +715,7 @@ MonoBehaviour:
   - 360
   _detectorRanges:
   - 30
-  - 3
+  - 5
   _hearingRange: 30
   _gunEnd: {fileID: 1185740175499552}
   _spotlight: {fileID: 1071343994507838}
@@ -737,8 +737,8 @@ MonoBehaviour:
   _seekingTimeBeforeIdle: 15
   _seekingRotationRange: 150
   _seekingMinRotateStopTime: 0.3
-  _seekingMaxRotateStopTime: 0.5
-  _seekingRotationSpeed: 8
+  _seekingMaxRotateStopTime: 0.8
+  _seekingRotationSpeed: 9
   _minDespawnTime: 30
   _minDespawnDistance: 10
   _minDespawnPlayerAngle: 100

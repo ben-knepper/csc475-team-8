@@ -172,6 +172,9 @@ public abstract class Enemy : Mob
 
     public bool CanSeePlayer()
     {
+        if (!_player.IsAlive)
+            return false;
+
         for (int i = 0; i < _detectors.Length; ++i)
         {
             Vector3 lineOfSight = _player._target.transform.position - _detectors[i].transform.position;

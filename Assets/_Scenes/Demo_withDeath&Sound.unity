@@ -2716,6 +2716,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AppID: 
+  autoStartServer: 1
 --- !u!1 &139389184
 GameObject:
   m_ObjectHideFlags: 0
@@ -8180,7 +8181,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh165642
+  m_Name: pb_Mesh24016
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -9573,7 +9574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunDamage: 1
-  fireRate: 0.25
+  fireRate: 0.5
   weaponRange: 50
   hitForce: 100
   gunEnd: {fileID: 707596129}
@@ -27042,7 +27043,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh166170
+  m_Name: pb_Mesh24570
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -27925,7 +27926,7 @@ Prefab:
     - target: {fileID: 114061701874843016, guid: c64824d640341164ca0d3be585708105,
         type: 2}
       propertyPath: _hearingRange
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c64824d640341164ca0d3be585708105, type: 2}
@@ -35910,7 +35911,7 @@ Prefab:
     - target: {fileID: 114061701874843016, guid: c64824d640341164ca0d3be585708105,
         type: 2}
       propertyPath: _detectorRanges.Array.data[1]
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114061701874843016, guid: c64824d640341164ca0d3be585708105,
         type: 2}
@@ -39540,7 +39541,7 @@ Animator:
   m_GameObject: {fileID: 1586798519}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: b5bf46bd8051a4b4cb281815ebe6a458, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2b704e81f3fcb4bfb991afd20eb34cdc, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -48126,8 +48127,10 @@ MonoBehaviour:
   _moveSpeed: 5
   _camera: {fileID: 0}
   _target: {fileID: 881538224}
-  rb: {fileID: 0}
-  sounds: []
+  _rb: {fileID: 0}
+  _fadeAnimator: {fileID: 1586798521}
+  _canvas: {fileID: 2045894474}
+  _sounds: []
 --- !u!114 &1774527170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50329,7 +50332,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh165534
+  m_Name: pb_Mesh23894
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -51017,7 +51020,7 @@ Mesh:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: pb_Mesh166060
+  m_Name: pb_Mesh24452
   serializedVersion: 8
   m_SubMeshes:
   - serializedVersion: 2
@@ -53916,7 +53919,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2045894475
 RectTransform:
   m_ObjectHideFlags: 0
