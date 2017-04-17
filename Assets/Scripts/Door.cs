@@ -16,6 +16,8 @@ public class Door : MonoBehaviour {
 
 		if (target.gameObject.tag == "Player") {
 
+            Debug.Log("Opening doors");
+
 			//Door Open
 			DoorAnimations.Play ("DoorOpen");
 		}
@@ -24,6 +26,8 @@ public class Door : MonoBehaviour {
 	void OnTriggerExit (Collider target) {
 
 		if (target.gameObject.tag == "Player") {
+
+            Debug.Log("Closing Doors");
 
 			//Door Closed
 			DoorAnimations.Play ("DoorClosed");

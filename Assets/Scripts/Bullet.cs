@@ -30,8 +30,12 @@ public class Bullet : MonoBehaviour
 		
 	}
 
+    protected static int collisionLayerMask = ~(1 << 9 | 1 << 11); // doesn't hit other projectiles or triggers
     void OnTriggerEnter(Collider collider)
     {
+        if (((1 << collider.gameObject.layer) & collisionLayerMask) == 0) // if it hit a projectile or trigger
+            return;
+
         Mob mob = collider.gameObject.GetComponent<Mob>();
         if (mob != null)
             mob.AddDamage(damage);
