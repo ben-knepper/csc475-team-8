@@ -23,17 +23,19 @@ public abstract class Enemy : Mob
 
     [Space(10)]
     [Header("Enemy Base")]
-    public Behavior _initialBehavior = Behavior.Idling;
+    public Behavior _defaultBehavior = Behavior.Idling;
     public float _behaviorUpdateInterval = 0.1f;
     public GameObject[] _detectors;
     public float[] _detectorAngleSpans;
     public float[] _detectorRanges;
     public float _hearingRange = 30f;
+    public PatrolNode _startingPatrolNode = null;
 
     protected static EnemyMaster _enemyMaster;
     protected static Player _player;
     protected Vector3 _lastKnownPlayerPosition;
     protected bool _isCleaningUp = false;
+    protected PatrolNode _targetPatrolNode;
 
 
     public GameObject Target { get; protected set; }
@@ -62,8 +64,6 @@ public abstract class Enemy : Mob
             _enemyMaster = GameObject.FindGameObjectWithTag("EnemyMaster").GetComponent<EnemyMaster>();
         if (_player == null)
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-
-        Health = _maxHealth;
     }
 
     // Use this for initialization
@@ -71,7 +71,10 @@ public abstract class Enemy : Mob
     {
         base.Start();
 
-        Behavior = _initialBehavior;
+        Health = _maxHealth;
+        _targetPatrolNode = _startingPatrolNode;
+
+        Behavior = _defaultBehavior;
 	}
 
     // Update is called once per frame

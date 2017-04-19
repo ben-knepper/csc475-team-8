@@ -76,9 +76,10 @@ public class Player : Mob
     }
 
 	private IEnumerator StartDeath()
-	{
-		_deathSound.Play ();
-        _rb.isKinematic = true;
+    {
+        //_rb.isKinematic = true;
+
+        _deathSound.Play ();
 
         _canvas.SetActive(true);
         _fadeAnimator.Play("FadeOut");

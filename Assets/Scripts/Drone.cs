@@ -14,8 +14,11 @@ public class Drone : Enemy
     public bool _isMobile;
 
     private UpdateFunc _rotateFunc;
-    private float _rotationEndTime;
-    private float _rotationCurrentTime;
+    private float _rotateEndTime;
+    private float _rotateCurrentTime;
+    private UpdateFunc _moveFunc;
+    private float _moveEndTime;
+    private float _moveCurrentTime;
 
 
     // bobbing fields
@@ -30,13 +33,24 @@ public class Drone : Enemy
     private float _bobbingPeriod;
 
 
-    // idle rotation fields
+    // idling fields
     [Space(10)]
-    [Header("Idle Rotation")]
-    public float _idlingRotationRange = 90f; // angle from one side of the range to the other
+    [Header("Idling")]
+    public float _idlingRotateRange = 90f; // angle from one side of the range to the other
     public float _idlingMinRotateStopTime = 1f;
     public float _idlingMaxRotateStopTime = 2f;
-    public float _idleRotationSpeed = 15f;
+    public float _idleRotateSpeed = 10f;
+
+
+    // roaming fields
+    [Space(10)]
+    [Header("Roaming")]
+    public float _roamingTurningToMovingChance = 0.2f; // evaluated after every rotation while idling
+    public float _roamingMoveSpeed = 5f;
+    public float _roamingRotateRange = 360f;
+    public float _roamingRotateSpeed = 15f;
+    public float _roamingMinRotateStopTime = 1f;
+    public float _roamingMaxRotateStopTime = 2f;
 
 
     // attacking fields
@@ -45,7 +59,7 @@ public class Drone : Enemy
     public GameObject _bullet;
     public Animator _chargingShotAnimator;
     public float _secsBetweenShots = 2f; // assumes that the _chargingShotAnimator animation occurs over 1 second
-    public float _attackingRotationSpeed = 30f;
+    public float _attackingRotateSpeed = 30f;
     public float _shotAlignedMarginOfError = 1f;
     public float _pauseAfterShotTime = 0.5f;
     public float _attackingTimeToWaitUntilSeek = 3f;
@@ -60,13 +74,12 @@ public class Drone : Enemy
     // seeking fields
     [Space(10)]
     [Header("Seeking")]
-    public float _seekingTimeBeforeIdle = 15f;
-    public float _seekingRotationRange = 150f;
+    public float _seekingTimeBeforeDefault = 15f;
+    public float _seekingRotateRange = 150f;
     public float _seekingMinRotateStopTime = 0.3f;
     public float _seekingMaxRotateStopTime = 0.8f;
-    public float _seekingRotationSpeed = 30f;
+    public float _seekingRotateSpeed = 30f;
 
-    private UpdateFunc _seekingFunc;
     private float _seekingCurrentTime;
 
     // death fields
@@ -153,46 +166,70 @@ public class Drone : Enemy
         transform.position = new Vector3(transform.position.x, newHeight, transform.position.z);
     }
 
-    private void StartRandomRotation(float rotationCenter, float rotationRange, float rotationSpeed)
+    private UpdateFunc MakeRandomRotateFunc(float rotateCenter, float rotateRange, float rotateSpeed)
     {
-        Quaternion startQuaternion = transform.rotation;
-        float rotationBounds = rotationRange / 2;
+        float rotationBounds = rotateRange / 2;
         float relativeNewAngle = UnityEngine.Random.Range(-rotationBounds, rotationBounds);
-        float newAngle = rotationCenter + relativeNewAngle;
+        float newAngle = rotateCenter + relativeNewAngle;
         if (newAngle >= 360)
             newAngle -= 360;
         else if (newAngle < 0)
             newAngle += 360;
-        Quaternion endQuaternion = Quaternion.Euler(
+        Quaternion newRotation = Quaternion.Euler(
             transform.rotation.eulerAngles.x,
             newAngle,
             transform.rotation.eulerAngles.z);
-        StartRotation(startQuaternion, endQuaternion, rotationSpeed);
+        UpdateFunc rotateFunc = MakeRotateFunc(newRotation, rotateSpeed);
+        return rotateFunc;
     }
 
-    private void StartRotation(Quaternion startQuaternion, Quaternion endQuaternion, float rotationSpeed)
+    private UpdateFunc MakeRotateFunc(Quaternion endRotation, float rotationSpeed)
     {
-        _rotationCurrentTime = 0;
-        _rotationEndTime = Mathf.Sqrt(Quaternion.Angle(startQuaternion, endQuaternion)) / rotationSpeed; // sqrt makes the speed more consistent for short and long rotations
-        _rotateFunc = () =>
+        Quaternion startRotation = transform.rotation;
+        _rotateCurrentTime = 0;
+        _rotateEndTime = Mathf.Sqrt(Quaternion.Angle(startRotation, endRotation)) / rotationSpeed; // sqrt makes the speed more consistent for short and long rotations
+        UpdateFunc rotateFunc = () =>
         {
             // based on https://chicounity3d.wordpress.com/2014/05/23/how-to-lerp-like-a-pro/
 
-            _rotationCurrentTime += Time.deltaTime;
-            if (_rotationCurrentTime > _rotationEndTime)
-                _rotationCurrentTime = _rotationEndTime;
+            _rotateCurrentTime += Time.deltaTime;
+            if (_rotateCurrentTime > _rotateEndTime)
+                _rotateCurrentTime = _rotateEndTime;
 
-            float t = _rotationCurrentTime / _rotationEndTime;
+            float t = _rotateCurrentTime / _rotateEndTime;
             //float smoothedT = t * t * t * (t * (6f * t - 15f) + 10f);
             float smoothedT = t * t * (3f - 2f * t);
-            transform.rotation = Quaternion.Lerp(startQuaternion, endQuaternion, smoothedT);
+            transform.rotation = Quaternion.Lerp(startRotation, endRotation, smoothedT);
         };
-        _updateFuncs += _rotateFunc;
+        return rotateFunc;
     }
 
-    private bool WaitForRotation()
+    private bool RotateIsDone()
     {
-        return _rotationCurrentTime >= _rotationEndTime;
+        return _rotateCurrentTime >= _rotateEndTime;
+    }
+
+    private UpdateFunc MakeMoveFunc(Vector3 endPosition, float moveSpeed, bool useY = false)
+    {
+        Vector3 startPosition = transform.position;
+        _moveCurrentTime = 0;
+        _moveEndTime = Vector3.Distance(startPosition, endPosition) / moveSpeed;
+        UpdateFunc moveFunc = () =>
+        {
+            _moveCurrentTime += Time.deltaTime;
+            if (_moveCurrentTime > _moveEndTime)
+                _moveCurrentTime = _moveEndTime;
+
+            float t = _moveCurrentTime / _moveEndTime;
+            float smoothT = t * t * t * (t * (6f * t - 15f) + 10f);
+            transform.position = Vector3.Lerp(startPosition, endPosition, t);
+        };
+        return moveFunc;
+    }
+
+    private bool MoveIsDone()
+    {
+        return _moveCurrentTime >= _moveEndTime;
     }
 
     private void Shoot()
@@ -240,7 +277,7 @@ public class Drone : Enemy
             Quaternion rotationToPlayer = Quaternion.LookRotation(
                 _lastKnownPlayerPosition - transform.position, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(
-                transform.rotation, rotationToPlayer, _attackingRotationSpeed * Time.deltaTime);
+                transform.rotation, rotationToPlayer, _attackingRotateSpeed * Time.deltaTime);
 
             float angleAwayFromPlayer = Quaternion.Angle(transform.rotation, rotationToPlayer);
 
@@ -321,16 +358,17 @@ public class Drone : Enemy
     {
         float rotationCenter = transform.rotation.eulerAngles.y;
 
-        while (true)
+        while (true) // will stop when the coroutine is stopped
         {
             // pause rotation
             float pauseTime = UnityEngine.Random.Range(_idlingMinRotateStopTime, _idlingMaxRotateStopTime);
             yield return new WaitForSecondsRealtime(pauseTime);
 
-            StartRandomRotation(rotationCenter, _idlingRotationRange, _idleRotationSpeed);
+            _rotateFunc = MakeRandomRotateFunc(rotationCenter, _idlingRotateRange, _idleRotateSpeed);
+            _updateFuncs += _rotateFunc;
 
             // wait until the rotation lerp is complete
-            yield return new WaitUntil(WaitForRotation);
+            yield return new WaitUntil(RotateIsDone);
 
             _updateFuncs -= _rotateFunc;
         }
@@ -353,23 +391,87 @@ public class Drone : Enemy
     {
         Debug.Log(this + " roaming");
 
+        _spotlight.SetActive(true);
+
         _cleanupFuncs += CleanupRoaming;
         StartCoroutine("CheckForStartAttacking");
+        StartCoroutine("UpdateRoaming");
+    }
+
+    protected IEnumerator UpdateRoaming()
+    {
+        while (true) // will stop when the coroutine is stopped
+        {
+            // if the drone isn't mobile, it isn't on a patrol track, or there aren't adjacent PatrolNodes, just idle
+            if (!_isMobile
+                || _targetPatrolNode == null
+                || _targetPatrolNode._adjacentNodes.Length == 0)
+            {
+                Debug.Log(this + " has no patrol track");
+                Behavior = Behavior.Idling;
+                break;
+            }
+
+            // select a new PatrolNode
+            var nodes = _targetPatrolNode._adjacentNodes;
+            _targetPatrolNode = nodes[UnityEngine.Random.Range(0, nodes.Length)];
+            Vector3 nodePosition = _targetPatrolNode.transform.position;
+            if (!_targetPatrolNode._useY)
+                nodePosition.y = transform.position.y;
+
+            // face the node
+            _rotateFunc = MakeRotateFunc(
+                Quaternion.LookRotation(nodePosition - transform.position, Vector3.up),
+                _roamingRotateSpeed);
+            _updateFuncs += _rotateFunc;
+            yield return new WaitUntil(RotateIsDone);
+            _updateFuncs -= _rotateFunc;
+
+            // move to the node
+            _moveFunc = MakeMoveFunc(nodePosition, _roamingMoveSpeed);
+            _updateFuncs += _moveFunc;
+            yield return new WaitUntil(MoveIsDone);
+            _updateFuncs -= _moveFunc;
+
+            if (_targetPatrolNode._isStoppingNode)
+            {
+                float rand = 1f;
+                while (rand > _roamingTurningToMovingChance)
+                {
+                    // pause rotation
+                    float pauseTime = UnityEngine.Random.Range(_roamingMinRotateStopTime, _roamingMaxRotateStopTime);
+                    yield return new WaitForSecondsRealtime(pauseTime);
+
+                    // rotate
+                    _rotateFunc = MakeRandomRotateFunc(transform.rotation.eulerAngles.y, _roamingRotateRange, _roamingRotateSpeed);
+                    _updateFuncs += _rotateFunc;
+
+                    yield return new WaitUntil(RotateIsDone);
+
+                    _updateFuncs -= _rotateFunc;
+
+                    rand = UnityEngine.Random.value;
+                }
+            }
+        }
     }
 
     private void CleanupRoaming()
     {
+        StopCoroutine("UpdateRoaming");
         StopCoroutine("CheckForStartAttacking");
 
-        _isCleaningUp = true;
+        _updateFuncs -= _moveFunc;
+        _updateFuncs -= _rotateFunc;
+
+        _spotlight.SetActive(false);
+
+        //_isCleaningUp = true;
     }
 
     protected override void Seek()
     {
         Debug.Log(this + " seeking player at " + _lastKnownPlayerPosition);
-
-        Quaternion angleToLastPlayerPosition = Quaternion.LookRotation(_lastKnownPlayerPosition, Vector3.up);
-        _seekingCurrentTime = 0f;
 
         _updateFuncs += CheckForSeekingToIdling;
         _cleanupFuncs += CleanupSeeking;
@@ -379,32 +481,35 @@ public class Drone : Enemy
 
     private IEnumerator UpdateSeeking()
     {
+        _seekingCurrentTime = 0;
+
         // first rotate to the last known player position
-        StartRotation(
-            transform.rotation,
-            Quaternion.LookRotation(_lastKnownPlayerPosition - transform.position, Vector2.up),
-            _seekingRotationSpeed);
-        yield return new WaitUntil(WaitForRotation);
+        _rotateFunc = MakeRotateFunc(
+            Quaternion.LookRotation(_lastKnownPlayerPosition - transform.position, Vector3.up),
+            _seekingRotateSpeed);
+        _updateFuncs += _rotateFunc;
+        yield return new WaitUntil(RotateIsDone);
         _updateFuncs -= _rotateFunc;
 
         float rotationCenter = transform.rotation.eulerAngles.y;
 
-        while (true)
+        while (true) // will stop when coroutine is stopped
         {
-            if (_isMobile)
-            {
-                // TODO
-            }
-            else
+            //if (_isMobile)
+            //{
+            //    // TODO
+            //}
+            //else
             {
                 // pause rotation
                 float pauseTime = UnityEngine.Random.Range(_seekingMinRotateStopTime, _seekingMaxRotateStopTime);
                 yield return new WaitForSecondsRealtime(pauseTime);
 
-                StartRandomRotation(rotationCenter, _seekingRotationRange, _seekingRotationSpeed);
+                _rotateFunc = MakeRandomRotateFunc(rotationCenter, _seekingRotateRange, _seekingRotateSpeed);
+                _updateFuncs += _rotateFunc;
 
                 // wait until the rotation lerp is complete
-                yield return new WaitUntil(WaitForRotation);
+                yield return new WaitUntil(RotateIsDone);
 
                 _updateFuncs -= _rotateFunc;
             }
@@ -414,8 +519,8 @@ public class Drone : Enemy
     private void CheckForSeekingToIdling()
     {
         _seekingCurrentTime += Time.deltaTime;
-        if (_seekingCurrentTime >= _seekingTimeBeforeIdle)
-            Behavior = Behavior.Idling;
+        if (_seekingCurrentTime >= _seekingTimeBeforeDefault)
+            Behavior = _defaultBehavior;
     }
 
     private void CleanupSeeking()

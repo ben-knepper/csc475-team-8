@@ -15,7 +15,6 @@ public abstract class Mob : MonoBehaviour
     [Header("Mob Base")]
     [Space(5)]
     public int _maxHealth = 3;
-    public float _moveSpeed = 5f;
 
 
     public int Health { get; protected set; }
