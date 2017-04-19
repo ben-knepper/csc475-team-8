@@ -40,7 +40,8 @@ public class GunController : MonoBehaviour {
     void Start () {
         
     }
-
+    
+    protected static int raycastLayerMask = ~(1 << 9 | 1 << 11); // raycast ignores projectiles and triggers
     // Update is called once per frame
     void Update()
     {
@@ -49,7 +50,7 @@ public class GunController : MonoBehaviour {
         Vector3 rayOrigin = gunEnd.transform.position;
         // Declare a raycast hit to store information about what our raycast has hit
         RaycastHit hit;
-        bool didHit = Physics.Raycast(rayOrigin, gunEnd.transform.forward, out hit, weaponRange);
+        bool didHit = Physics.Raycast(rayOrigin, gunEnd.transform.forward, out hit, weaponRange, raycastLayerMask);
         Enemy hitEnemy = null;
 
         // Check if the player has pressed the fire button and if enough time has elapsed since they last fired

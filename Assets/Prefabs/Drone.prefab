@@ -740,7 +740,7 @@ MonoBehaviour:
   _seekingMaxRotateStopTime: 0.8
   _seekingRotationSpeed: 10
   _minDespawnTime: 30
-  _minDespawnDistance: 10
+  _minDespawnDistance: 30
   _minDespawnPlayerAngle: 100
   _deathSparkParticles: {fileID: 1197484098661336}
 --- !u!135 &135491363157295370

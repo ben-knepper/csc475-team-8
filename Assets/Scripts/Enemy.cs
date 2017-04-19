@@ -172,7 +172,7 @@ public abstract class Enemy : Mob
 
     protected abstract void Die();
 
-
+    protected static int visionLayerMask = ~(1 << 8 | 1 << 9 | 1 << 11); // sees through enemies, projectiles, and triggers
     public bool CanSeePlayer()
     {
         if (!_player.IsAlive)
@@ -190,8 +190,7 @@ public abstract class Enemy : Mob
                 continue; // player not in the angle span of this detector
 
             RaycastHit hit;
-            int layerMask = ~(1 << 8);
-            bool didHit = Physics.Raycast(_detectors[i].transform.position, lineOfSight, out hit, _detectorRanges[i], layerMask);
+            bool didHit = Physics.Raycast(_detectors[i].transform.position, lineOfSight, out hit, _detectorRanges[i], visionLayerMask);
             if (!didHit || hit.collider.gameObject.GetComponentInParent<Player>() == null)
                 continue; // player behind an obstacle
 
