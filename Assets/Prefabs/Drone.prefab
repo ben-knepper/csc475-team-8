@@ -704,8 +704,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 2
-  _moveSpeed: 5
-  _initialBehavior: 1
+  _defaultBehavior: 2
   _behaviorUpdateInterval: 0.1
   _detectors:
   - {fileID: 1955412612661682}
@@ -717,30 +716,37 @@ MonoBehaviour:
   - 30
   - 5
   _hearingRange: 30
+  _startingPatrolNode: {fileID: 0}
   _gunEnd: {fileID: 1185740175499552}
   _spotlight: {fileID: 1071343994507838}
-  _isMobile: 0
+  _isMobile: 1
   _hoverHeight: 0
   _bobbingDistance: 0.1
   _bobbingSpeed: 0.2
-  _idlingRotationRange: 90
+  _idlingRotateRange: 90
   _idlingMinRotateStopTime: 1
   _idlingMaxRotateStopTime: 2
-  _idleRotationSpeed: 5
+  _idleRotateSpeed: 10
+  _roamingTurningToMovingChance: 0.2
+  _roamingMoveSpeed: 3
+  _roamingRotateRange: 360
+  _roamingRotateSpeed: 10
+  _roamingMinRotateStopTime: 1
+  _roamingMaxRotateStopTime: 2
   _bullet: {fileID: 1302360820822926, guid: dd9d899ad66f8654f9db6775edaa1039, type: 2}
   _chargingShotAnimator: {fileID: 0}
   _secsBetweenShots: 1
-  _attackingRotationSpeed: 80
+  _attackingRotateSpeed: 30
   _shotAlignedMarginOfError: 1
   _pauseAfterShotTime: 0.5
   _attackingTimeToWaitUntilSeek: 1.5
-  _seekingTimeBeforeIdle: 15
-  _seekingRotationRange: 150
+  _seekingTimeBeforeDefault: 15
+  _seekingRotateRange: 150
   _seekingMinRotateStopTime: 0.3
   _seekingMaxRotateStopTime: 0.8
-  _seekingRotationSpeed: 10
+  _seekingRotateSpeed: 30
   _minDespawnTime: 30
-  _minDespawnDistance: 10
+  _minDespawnDistance: 30
   _minDespawnPlayerAngle: 100
   _deathSparkParticles: {fileID: 1197484098661336}
 --- !u!135 &135491363157295370
