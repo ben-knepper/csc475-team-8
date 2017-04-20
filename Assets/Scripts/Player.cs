@@ -12,11 +12,14 @@ public class Player : Mob
     public Animator _fadeAnimator;
     public GameObject _canvas;
 
+	public GameObject _shot1Blood;
+	public GameObject _shot2Blood;
+	public GameObject _shot3Blood;
+
 
     public bool IsAlive { get; set; }
 
 
-	//public AudioSource hurtSound;
 	public AudioSource[] _sounds;
 
 
@@ -49,6 +52,9 @@ public class Player : Mob
 		_shot1Sound = _sounds [0];
 		_shot2Sound = _sounds [1];
 		_deathSound = _sounds [2];
+		_shot1Blood.SetActive (false);
+		_shot2Blood.SetActive (false);
+		_shot3Blood.SetActive (false);
 
         StartCoroutine("StartNewLevel");
 	}
@@ -92,6 +98,7 @@ public class Player : Mob
 	public override void Shot1()
 	{
 		base.Shot1 ();
+		_shot1Blood.SetActive (true);
 		_shot1Sound.Play ();
 
 	}
@@ -99,6 +106,8 @@ public class Player : Mob
 	public override void Shot2()
 	{
 		base.Shot2 ();
+		_shot1Blood.SetActive (false);
+		_shot2Blood.SetActive (true);
 		_shot2Sound.Play ();
 
 	}
@@ -106,6 +115,8 @@ public class Player : Mob
     public override void Kill()
     {
         base.Kill();
+		_shot2Blood.SetActive (false);
+		_shot3Blood.SetActive (true);
 
         IsAlive = false;
 
