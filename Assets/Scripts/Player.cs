@@ -16,6 +16,9 @@ public class Player : Mob
 	public GameObject _shot2Blood;
 	public GameObject _shot3Blood;
 
+	private float timeSinceDamaged;
+	public float timeUntilHeal = 10;
+
 
     public bool IsAlive { get; set; }
 
@@ -63,6 +66,16 @@ public class Player : Mob
 	protected override void Update()
     {
         base.Update();
+		if (Health < _maxHealth) {
+			timeSinceDamaged += Time.deltaTime;
+			if (timeSinceDamaged > timeUntilHeal) {
+				Health = _maxHealth;
+				_shot1Blood.SetActive (false);
+				_shot2Blood.SetActive (false);
+				_shot3Blood.SetActive (false);
+
+			}
+		}
 	}
 
     protected override void FixedUpdate()
@@ -93,6 +106,18 @@ public class Player : Mob
 
 		Application.LoadLevel (Application.loadedLevel);
         yield break;
+	}
+
+	public override void AddDamage (int damage)
+	{
+		base.AddDamage (damage);
+		timeSinceDamaged = 0;
+		if (Health == 2)
+			Shot1 ();
+		if (Health == 1)
+			Shot2 ();
+		if (Health < 0)
+			Health = 0;
 	}
 
 	public override void Shot1()
