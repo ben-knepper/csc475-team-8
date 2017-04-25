@@ -11,5 +11,7 @@ EditorBuildSettings:
     path: Assets/OSVRUnity/Sample/Demo/Scenes/OSVRDemo.unity
   - enabled: 0
     path: Assets/OSVRUnity/Sample/Demo/Scenes/OSVRDemo2.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/_Scenes/Demo_withDeath&Sound.unity
+  - enabled: 1
+    path: Assets/_Scenes/TutorialRoom_NewBulletTest.unity

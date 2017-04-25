@@ -68,12 +68,22 @@ public class Player : Mob
         base.Update();
 		if (Health < _maxHealth) {
 			timeSinceDamaged += Time.deltaTime;
-			if (timeSinceDamaged > timeUntilHeal) {
-				Health = _maxHealth;
-				_shot1Blood.SetActive (false);
-				_shot2Blood.SetActive (false);
+            if (timeSinceDamaged > timeUntilHeal)
+            {
+                //Health = _maxHealth;
+                if (Health == 2) { 
+                    _shot1Blood.SetActive(false);
+                    Health = _maxHealth;
+                }
+                if (Health == 1) {
+                    _shot2Blood.SetActive(false);
+                    _shot1Blood.SetActive(true);
+                    Health += 1;
+                    timeSinceDamaged = 0;
+                }
+				//_shot2Blood.SetActive (false);
 				_shot3Blood.SetActive (false);
-
+               
 			}
 		}
 	}
