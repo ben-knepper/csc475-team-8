@@ -186,8 +186,18 @@ public class Drone : Enemy
     private UpdateFunc MakeRotateFunc(Quaternion endRotation, float rotationSpeed)
     {
         Quaternion startRotation = transform.rotation;
+        float angleDifference = Quaternion.Angle(startRotation, endRotation);
+        
+        // if already facing the desired rotation, return a function that does nothing
+        if (angleDifference == 0)
+        {
+            _rotateCurrentTime = 0;
+            _rotateEndTime = 0;
+            return () => { };
+        }
+
         _rotateCurrentTime = 0;
-        _rotateEndTime = Mathf.Sqrt(Quaternion.Angle(startRotation, endRotation)) / rotationSpeed; // sqrt makes the speed more consistent for short and long rotations
+        _rotateEndTime = Mathf.Sqrt(angleDifference) / rotationSpeed; // sqrt makes the speed more consistent for short and long rotations
         UpdateFunc rotateFunc = () =>
         {
             // based on https://chicounity3d.wordpress.com/2014/05/23/how-to-lerp-like-a-pro/
@@ -199,7 +209,7 @@ public class Drone : Enemy
             float t = _rotateCurrentTime / _rotateEndTime;
             //float smoothedT = t * t * t * (t * (6f * t - 15f) + 10f);
             float smoothedT = t * t * (3f - 2f * t);
-            transform.rotation = Quaternion.Lerp(startRotation, endRotation, smoothedT);
+            transform.rotation = Quaternion.Slerp(startRotation, endRotation, smoothedT);
         };
         return rotateFunc;
     }
@@ -403,8 +413,13 @@ public class Drone : Enemy
         while (true) // will stop when the coroutine is stopped
         {
             // if the drone isn't mobile, it isn't on a patrol track, or there aren't adjacent PatrolNodes, just idle
-            if (!_isMobile
-                || _targetPatrolNode == null
+            if (!_isMobile)
+            {
+                Debug.Log(this + " is not mobile");
+                Behavior = Behavior.Idling;
+                break;
+            }
+            if (_targetPatrolNode == null
                 || _targetPatrolNode._adjacentNodes.Length == 0)
             {
                 Debug.Log(this + " has no patrol track");
@@ -436,10 +451,11 @@ public class Drone : Enemy
             if (_targetPatrolNode._isStoppingNode)
             {
                 float rand = 1f;
+                float pauseTime;
                 while (rand > _roamingTurningToMovingChance)
                 {
                     // pause rotation
-                    float pauseTime = UnityEngine.Random.Range(_roamingMinRotateStopTime, _roamingMaxRotateStopTime);
+                    pauseTime = UnityEngine.Random.Range(_roamingMinRotateStopTime, _roamingMaxRotateStopTime);
                     yield return new WaitForSecondsRealtime(pauseTime);
 
                     // rotate
@@ -452,6 +468,9 @@ public class Drone : Enemy
 
                     rand = UnityEngine.Random.value;
                 }
+                // pause rotation
+                pauseTime = UnityEngine.Random.Range(_roamingMinRotateStopTime, _roamingMaxRotateStopTime);
+                yield return new WaitForSecondsRealtime(pauseTime);
             }
         }
     }

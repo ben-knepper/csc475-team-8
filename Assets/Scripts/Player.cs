@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : Mob
@@ -8,7 +10,6 @@ public class Player : Mob
 
     public Camera _camera;
     public GameObject _target;
-	public Rigidbody _rb;
     public Animator _fadeAnimator;
     public GameObject _canvas;
 
@@ -38,10 +39,11 @@ public class Player : Mob
     {
         base.Awake();
 
+        UnityEngine.Random.InitState((int)DateTime.Now.Ticks);
+
         if (_camera == null)
             _camera = gameObject.GetComponentInChildren<Camera>();
         _enemyMaster = GameObject.FindGameObjectWithTag("EnemyMaster").GetComponent<EnemyMaster>();
-        _rb = GetComponent<Rigidbody>();
 
         Health = _maxHealth;
         IsAlive = true;
@@ -114,7 +116,8 @@ public class Player : Mob
         _fadeAnimator.Play("FadeOut");
 		yield return new WaitForSeconds(2);
 
-		Application.LoadLevel (Application.loadedLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+		//Application.LoadLevel (Application.loadedLevel);
         yield break;
 	}
 

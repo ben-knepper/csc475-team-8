@@ -729,7 +729,7 @@ MonoBehaviour:
   _idlingMinRotateStopTime: 1
   _idlingMaxRotateStopTime: 2
   _idleRotateSpeed: 10
-  _roamingTurningToMovingChance: 0.2
+  _roamingTurningToMovingChance: 0.4
   _roamingMoveSpeed: 3
   _roamingRotateRange: 360
   _roamingRotateSpeed: 10
@@ -744,9 +744,9 @@ MonoBehaviour:
   _attackingTimeToWaitUntilSeek: 1.5
   _seekingTimeBeforeDefault: 15
   _seekingRotateRange: 150
-  _seekingMinRotateStopTime: 0.3
+  _seekingMinRotateStopTime: 0.5
   _seekingMaxRotateStopTime: 0.8
-  _seekingRotateSpeed: 30
+  _seekingRotateSpeed: 20
   _minDespawnTime: 30
   _minDespawnDistance: 30
   _minDespawnPlayerAngle: 100
@@ -771,7 +771,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1197484098661336}
   serializedVersion: 5
   lengthInSec: 4
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
@@ -3402,7 +3402,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1185740175499552}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1
