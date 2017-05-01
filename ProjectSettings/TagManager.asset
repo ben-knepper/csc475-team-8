@@ -8,6 +8,8 @@ TagManager:
   - Locker
   - EnemyMaster
   - Fade
+  - Generator
+  - Energy
   layers:
   - Default
   - TransparentFX

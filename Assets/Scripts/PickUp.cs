@@ -72,7 +72,7 @@ public class PickUp : MonoBehaviour {
 		}
 	}
 
-	void dropObject() {
+	public void dropObject() {
 
 		carrying = false;
 		carriedObject.gameObject.GetComponent<Rigidbody> ().useGravity = true;
