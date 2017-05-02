@@ -10,6 +10,7 @@ TagManager:
   - Fade
   - Generator
   - Energy
+  - PowerlessDoor
   layers:
   - Default
   - TransparentFX

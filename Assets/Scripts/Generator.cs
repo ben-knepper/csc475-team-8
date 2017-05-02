@@ -8,12 +8,15 @@ public class Generator : MonoBehaviour {
     public Animator rodAnimator;
 
     private PickUp player;
+	private Door powerlessDoor;
 
 	// Use this for initialization
 	void Start () {
 		rodCount = 0;
-        if (player == null)
+        if (player == null) 
             player = GameObject.FindGameObjectWithTag("Player").GetComponent<PickUp>();
+			powerlessDoor = GameObject.FindGameObjectWithTag ("PowerlessDoor").GetComponent<Door> ();
+		powerlessDoor.DoorAnimations.enabled = false;
 
     }
 	
@@ -22,6 +25,7 @@ public class Generator : MonoBehaviour {
 		//check if all rods have been inserted
 		if (rodCount == 4) {
 			//open exit door
+			powerlessDoor.DoorAnimations.enabled = true;
 		}
 		
 	}
